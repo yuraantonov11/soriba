@@ -1,0 +1,14 @@
+extends ../layout
+
+block content
+    .pb-2.mt-2.mb-4.border-bottom
+        h3 All Products
+
+    .row
+        each product in products
+            .col-md-4
+                a(href=product.link, style='color: #fff')
+                    .card(style='background-color: #000').mb-3
+                        .card-body
+                            img(src=product.image, height=40)
+                            |#{product.title}
