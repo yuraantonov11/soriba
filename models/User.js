@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+  roles: ['researcher', 'user', 'admin'],
   email: { type: String, unique: true },
   password: String,
   passwordResetToken: String,
