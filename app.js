@@ -178,6 +178,7 @@ app.get('/api/google-maps', apiController.getGoogleMaps);
  * Products routes.
  */
 app.get('/products', productsController.index);
+app.get('/products/add', productsController.add);
 app.get('/products/product', productsController.product);
 
 /**
