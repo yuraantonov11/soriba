@@ -2,13 +2,24 @@ extends ../layout
 
 block content
     .pb-2.mt-2.mb-4.border-bottom
-        h3 All Products
+        h3= title
 
     .row
         each product in products
             .col-md-4
-                a(href=product.link, style='color: #fff')
-                    .card(style='background-color: #000').mb-3
+                a(href=product.link)
+                    .card.mb-3
+                        img(src=product.image, height='200px', max-width='100%')
                         .card-body
-                            img(src=product.image, height=40)
-                            |#{product.title}
+                            p.title= product.title
+                            ul
+                                each item in product.attributes
+                                    li= item
+                            span.price= product.currency + product.price
+
+                            - var n = 0;
+                                while n++ < 5
+                                    if product.rating < n
+                                        span.fa.fa-star
+                                    else
+                                        span.fa.fa-star.checked
