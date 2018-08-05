@@ -2,7 +2,32 @@ extends ../layout
 
 block content
     .pb-2.mt-2.mb-4.border-bottom
-        h3 All Products
-
+        h3= title
     .row
         .col-md-4
+            form(method='POST' action="/products")
+                input(type='hidden', name='_csrf', value=_csrf)
+                .form-group.row
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product title
+                    .col-md-7
+                        input.form-control(type='text', name='title', id='title', required)
+                input(type='text', name='description')
+                input(type='text', name='features')
+                input(type='text', name='price')
+                input(type='text', name='currency')
+                select(name='rating')
+                    option 0
+                    option 1
+                    option 2
+                    option 3
+                    option 4
+                    option 5
+                input(type='text', name='link')
+                input(type='checkbox', name='category' value='Household')
+                input(type='checkbox', name='category' value='Pet’s')
+                input(type='checkbox', name='category' value='Travel')
+                input(type='checkbox', name='category' value='Geeky')
+            .form-group.offset-sm-3.col-md-7.pl-2
+                button.btn.btn-success(type='submit')
+                    i.fas.fa-plus.fa-sm
+                    | Create
