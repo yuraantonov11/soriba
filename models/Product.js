@@ -1,27 +1,20 @@
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const productSchema = new mongoose.Schema({
-  email: { type: String, unique: true },
-  password: String,
-  passwordResetToken: String,
-  passwordResetExpires: Date,
+const productSchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  name: String,
+  title: String,
+  features: String,
+  price: Number,
+  rating: {
+    type: Number,
+    enum: [0, 1, 2, 3, 4, 5]
+  },
+  link: String,
+  image: String,
+  categories: [{ type: Schema.Types.ObjectId, ref: 'Category' }]
 
-  facebook: String,
-  twitter: String,
-  google: String,
-  github: String,
-  instagram: String,
-  linkedin: String,
-  steam: String,
-  tokens: Array,
-
-  profile: {
-    name: String,
-    gender: String,
-    location: String,
-    website: String,
-    picture: String
-  }
 }, { timestamps: true });
 
 /**

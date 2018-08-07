@@ -19,8 +19,20 @@ const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
+const crypto = require('crypto');
+const mime = require('mime');
 
-const upload = multer({ dest: path.join(__dirname, 'uploads') });
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: function (req, file, cb) {
+    crypto.pseudoRandomBytes(16, (err, raw) => {
+      cb(null, raw.toString('hex') + Date.now() + '.' + mime.extension(file.mimetype));
+    });
+  }
+});
+const upload = multer({ storage });
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -35,6 +47,7 @@ const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const productsController = require('./controllers/products');
 const contactController = require('./controllers/contact');
+const categoriesController = require('./controllers/categories');
 
 /**
  * API keys and Passport configuration.
@@ -86,13 +99,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
+// app.use((req, res, next) => {
+//   if (req.path === '/api/upload') {
+//     next();
+//   } else {
+//     lusca.csrf()(req, res, next);
+//   }
+// });
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.disable('x-powered-by');
@@ -178,10 +191,15 @@ app.get('/api/google-maps', apiController.getGoogleMaps);
  * Products routes.
  */
 app.get('/products', productsController.index);
-app.post('/products', productsController.add);
+app.post('/products', upload.single('product-image'), productsController.add);
 app.get('/products/add', productsController.addPage);
 app.get('/products/product', productsController.product);
 
+
+/**
+ * Categories routes.
+ */
+app.get('/categories', categoriesController.index);
 /**
  * OAuth authentication routes. (Sign in)
  */

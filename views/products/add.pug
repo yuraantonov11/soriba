@@ -5,8 +5,12 @@ block content
         h3= title
     .row
         .col-md-4
-            form(method='POST' action="/products")
+            form(method='POST' action="/products", accept="multipart/form-data")
                 input(type='hidden', name='_csrf', value=_csrf)
+                .form-group.row
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product name
+                    .col-md-7
+                        input.form-control(type='text', name='name', id='name', required)
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product title
                     .col-md-7
@@ -19,10 +23,6 @@ block content
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-md-7
                         input.form-control(type='text', name='price', id='price', required)
-                .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='currency') Product currency
-                    .col-md-7
-                        input.form-control(type='text', name='currency', id='currency', required)
                 select(name='rating')
                     option 0
                     option 1
@@ -37,11 +37,11 @@ block content
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
                     .col-md-7
-                        input.form-control(type='file', name='image', id='image', accept=".png, .jpg, .jpeg", required)
-                    input(type='checkbox', name='category' value='Household')
-                    input(type='checkbox', name='category' value='Pet’s')
-                    input(type='checkbox', name='category' value='Travel')
-                    input(type='checkbox', name='category' value='Geeky')
+                        input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
+                input(type='checkbox', name='category' value='Household')
+                input(type='checkbox', name='category' value='Pet’s')
+                input(type='checkbox', name='category' value='Travel')
+                input(type='checkbox', name='category' value='Geeky')
                 .form-group.offset-sm-3.col-md-7.pl-2
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm

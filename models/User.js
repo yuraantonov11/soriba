@@ -1,9 +1,14 @@
 const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const userSchema = new mongoose.Schema({
-  roles: ['researcher', 'user', 'admin'],
+const userSchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  role: {
+    type: String,
+    enum: ['researcher', 'user', 'admin']
+  },
   email: { type: String, unique: true },
   password: String,
   passwordResetToken: String,
