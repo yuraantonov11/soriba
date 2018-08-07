@@ -11,10 +11,18 @@ block content
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product title
                     .col-md-7
                         input.form-control(type='text', name='title', id='title', required)
-                input(type='text', name='description')
-                input(type='text', name='features')
-                input(type='text', name='price')
-                input(type='text', name='currency')
+                .form-group.row
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='features') Product features
+                    .col-md-7
+                        input.form-control(type='text', name='features', id='features', required)
+                .form-group.row
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
+                    .col-md-7
+                        input.form-control(type='text', name='price', id='price', required)
+                .form-group.row
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='currency') Product currency
+                    .col-md-7
+                        input.form-control(type='text', name='currency', id='currency', required)
                 select(name='rating')
                     option 0
                     option 1
@@ -22,12 +30,19 @@ block content
                     option 3
                     option 4
                     option 5
-                input(type='text', name='link')
-                input(type='checkbox', name='category' value='Household')
-                input(type='checkbox', name='category' value='Pet’s')
-                input(type='checkbox', name='category' value='Travel')
-                input(type='checkbox', name='category' value='Geeky')
-            .form-group.offset-sm-3.col-md-7.pl-2
-                button.btn.btn-success(type='submit')
-                    i.fas.fa-plus.fa-sm
-                    | Create
+                .form-group.row
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='link') Product link
+                    .col-md-7
+                        input.form-control(type='text', name='link', id='link', required)
+                .form-group.row
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
+                    .col-md-7
+                        input.form-control(type='file', name='image', id='image', accept=".png, .jpg, .jpeg", required)
+                    input(type='checkbox', name='category' value='Household')
+                    input(type='checkbox', name='category' value='Pet’s')
+                    input(type='checkbox', name='category' value='Travel')
+                    input(type='checkbox', name='category' value='Geeky')
+                .form-group.offset-sm-3.col-md-7.pl-2
+                    button.btn.btn-success(type='submit')
+                        i.fas.fa-plus.fa-sm
+                        | Create
