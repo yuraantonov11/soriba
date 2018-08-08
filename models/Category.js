@@ -2,7 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const categorySchema = new Schema({
-  _id: Schema.Types.ObjectId,
+  _id: {
+    type: Schema.Types.ObjectId,
+    default: new Schema.ObjectId()
+  },
   name: String,
 }, { timestamps: true });
 

@@ -2,12 +2,12 @@ const Category = require('../models/Category');
 
 /**
  * GET /
- * Products page.
+ * Categories page.
  */
 exports.index = (req, res) => {
   Category
     .find({})
-    .exec(function (err, categories) {
+    .exec((err, categories) => {
       if (err) console.log(err);
       // this will log all of the users with each of their posts
       res.render('categories', {
@@ -16,36 +16,35 @@ exports.index = (req, res) => {
       });
     });
 };
-
 /**
  * GET /
- * Product page.
+ * all Categories.
  */
-exports.product = (req, res) => {
-  res.render('products/product', {
-    title: 'Product',
-    products: products[0]
-  });
+exports.getAllCategories = (req, res) => {
+  Category
+    .find({})
+    .exec((err, categories) => {
+      if (err) return res.send(err);
+      // this will log all of the users with each of their posts
+      res.send(categories);
+    });
 };
-
 
 /**
  * POST /
- * Add Product pethod.
+ * Add Categories method.
  */
 exports.add = (req, res) => {
-  console.log(req.body)
-  console.log(req.file)
-  Product.create({
-    size: 'small'
-  }, function (err, small) {
-    if (err) return handleError(err);
+  if (!req.body.name) {
+    return res.status(500).send({ error: 'Bad request!' })
+  }
+  Category.create({
+    name: req.body.name
+  }, (err, small) => {
+    if (err) return res.status(500).send({ error: 'Something failed!' });
     // saved!
-    res.send('OK')
+    res.sendStatus(201);
   });
-  // res.render('products/product', {
-  //   title: 'Add new Product'
-  // });
 };
 
 /**

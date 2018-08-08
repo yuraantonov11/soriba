@@ -199,7 +199,10 @@ app.get('/products/product', productsController.product);
 /**
  * Categories routes.
  */
-app.get('/categories', categoriesController.index);
+app.get('/categories-page', categoriesController.index);
+app.get('/categories', categoriesController.getAllCategories);
+app.post('/categories', categoriesController.add);
+app.get('/categories/add', categoriesController.addPage);
 /**
  * OAuth authentication routes. (Sign in)
  */

@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    .pb-2.mt-2.mb-4.border-bottom
+        h3= title
+
+    .row
+        each category in categories
+            .col-md-4
+                .card.mb-3
+                    .card-body
+                        p.title= category.name

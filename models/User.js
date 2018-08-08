@@ -4,7 +4,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-  _id: Schema.Types.ObjectId,
+  _id: {
+    type: Schema.Types.ObjectId,
+    default: new Schema.ObjectId()
+  },
   role: {
     type: String,
     enum: ['researcher', 'user', 'admin']
