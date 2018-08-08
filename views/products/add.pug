@@ -4,7 +4,7 @@ block content
     .pb-2.mt-2.mb-4.border-bottom
         h3= title
     .row
-        .col-md-4
+        .col-md-12
             form(method='POST' action="/products", accept="multipart/form-data")
                 input(type='hidden', name='_csrf', value=_csrf)
                 .form-group.row
@@ -23,13 +23,15 @@ block content
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-md-7
                         input.form-control(type='text', name='price', id='price', required)
-                select(name='rating')
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='rating') Rating
+                select(name='rating' id='rating')
                     option 0
                     option 1
                     option 2
                     option 3
                     option 4
                     option 5
+                span.fa.fa-star
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='link') Product link
                     .col-md-7
@@ -38,11 +40,15 @@ block content
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
                     .col-md-7
                         input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
-                input(type='checkbox', name='category' value='Household')
-                input(type='checkbox', name='category' value='Pet’s')
-                input(type='checkbox', name='category' value='Travel')
-                input(type='checkbox', name='category' value='Geeky')
-                .form-group.offset-sm-3.col-md-7.pl-2
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat1') Household
+                    input(type='checkbox', name='category' value='Household' id='cat1')
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat2') Pet’s
+                    input(type='checkbox', name='category' value='Pet’s' id='cat2')
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat3') Travel
+                    input(type='checkbox', name='category' value='Travel' id='cat3')
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat4') Geeky
+                    input(type='checkbox', name='category' value='Geeky' id='cat4')
+                .form-group.offset-sm-4.col-md-4.pl-2
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm
                         | Create
