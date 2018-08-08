@@ -202,7 +202,7 @@ app.get('/products/product', productsController.product);
 app.get('/categories-page', categoriesController.index);
 app.get('/categories', categoriesController.getAllCategories);
 app.post('/categories', categoriesController.add);
-app.get('/categories/add', categoriesController.addPage);
+app.del('/categories/:categoryId', categoriesController.removeCategory);
 /**
  * OAuth authentication routes. (Sign in)
  */

@@ -36,7 +36,7 @@ exports.getAllCategories = (req, res) => {
  */
 exports.add = (req, res) => {
   if (!req.body.name) {
-    return res.status(500).send({ error: 'Bad request!' })
+    return res.status(500).send({ error: 'Bad request!' });
   }
   Category.create({
     name: req.body.name
@@ -51,8 +51,11 @@ exports.add = (req, res) => {
  * GET /
  * Add Product page.
  */
-exports.addPage = (req, res) => {
-  res.render('products/add', {
-    title: 'Add new Product'
-  });
+exports.removeCategory = (req, res) => {
+  Category.remove({ _id: req.body.categoryId })
+    .exec((err, categories) => {
+      if (err) return res.send(err);
+      // this will log all of the users with each of their posts
+      res.send(categories);
+    });
 };

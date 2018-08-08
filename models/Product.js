@@ -1,10 +1,11 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+
+const { Schema } = mongoose;
 
 const productSchema = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: new Schema.ObjectId()
+    default: new mongoose.Types.ObjectId()
   },
   name: String,
   title: String,
