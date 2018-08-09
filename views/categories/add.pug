@@ -8,9 +8,9 @@ block content
             form(method='POST' action="/categoies")
                 input(type='hidden', name='_csrf', value=_csrf)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Category name
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for=category._id)= category.name
                     .col-md-7
-                        input.form-control(type='text', name='name', id='name', required)
+                        input.form-control(type='text', name='name', id=category._id, required)
                 .form-group.offset-sm-3.col-md-7.pl-2
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm

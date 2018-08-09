@@ -40,14 +40,9 @@ block content
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
                     .col-md-7
                         input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat1') Household
-                    input(type='checkbox', name='category' value='Household' id='cat1')
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat2') Pet’s
-                    input(type='checkbox', name='category' value='Pet’s' id='cat2')
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat3') Travel
-                    input(type='checkbox', name='category' value='Travel' id='cat3')
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat4') Geeky
-                    input(type='checkbox', name='category' value='Geeky' id='cat4')
+                each category in categories
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat1') Household
+                        input(type='checkbox', name='category' value='Household' id='cat1')
                 .form-group.offset-sm-4.col-md-4.pl-2
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm

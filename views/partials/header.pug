@@ -14,10 +14,10 @@
           a.nav-link(href='/products') All Products
         li.nav-item(class=(title === 'Add Product') ? 'active' : undefined)
           a.nav-link(href='/products/add') Add Product
+        li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
+          a.nav-link(href='/categories-page') Categories
         li.nav-item(class=(title === 'Contact') ? 'active' : undefined)
           a.nav-link(href='/contact') Contact
-        li.nav-item(class=(title === 'Status') ? 'active' : undefined)
-          a.nav-link(href='/status') Status
       ul.nav.navbar-nav.ml-auto
         if !user
           li.nav-item(class=(title === 'Login') ? 'active' : undefined)
