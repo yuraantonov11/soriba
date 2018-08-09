@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const categorySchema = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: new mongoose.Types.ObjectId()
+    default: mongoose.Types.ObjectId
   },
   name: String,
 }, { timestamps: true });

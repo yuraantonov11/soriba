@@ -5,7 +5,7 @@ block content
         h3= title
     .row
         .col-md-12
-            form(method='POST' action="/products", accept="multipart/form-data")
+            form(method='POST' action="/products")
                 input(type='hidden', name='_csrf', value=_csrf)
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product name
@@ -16,13 +16,15 @@ block content
                     .col-md-7
                         input.form-control(type='text', name='title', id='title', required)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='features') Product features
+                    label.col-md-3.col-form-label.font-weight-bold.text-right Product features
                     .col-md-7
-                        input.form-control(type='text', name='features', id='features', required)
+                        input.form-control(type='text', name='features', required)
+                    .col-md-7
+                        input.form-control(type='text', name='features', required)
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-md-7
-                        input.form-control(type='text', name='price', id='price', required)
+                        input.form-control(type='number', name='price', id='price', required)
                 label.col-md-3.col-form-label.font-weight-bold.text-right(for='rating') Rating
                 select(name='rating' id='rating')
                     option 0
@@ -41,8 +43,8 @@ block content
                     .col-md-7
                         input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
                 each category in categories
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='cat1') Household
-                        input(type='checkbox', name='category' value='Household' id='cat1')
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
+                        input(type='checkbox', name='category' value=category._id id=category._id)
                 .form-group.offset-sm-4.col-md-4.pl-2
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm

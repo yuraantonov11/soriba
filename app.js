@@ -124,6 +124,9 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+app.use('/uploads', express.static('uploads'));
+
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js'), { maxAge: 31557600000 }));
@@ -158,7 +161,8 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 /**
  * Products routes.
  */
-app.get('/products', productsController.index);
+app.get('/products-page', productsController.index);
+app.get('/products', productsController.getAll);
 app.post('/products', upload.single('product-image'), productsController.add);
 app.get('/products/add', productsController.addPage);
 app.get('/products/product', productsController.product);
@@ -170,7 +174,7 @@ app.get('/products/product', productsController.product);
 app.get('/categories-page', categoriesController.index);
 app.get('/categories', categoriesController.getAllCategories);
 app.post('/categories', categoriesController.add);
-app.del('/categories/:categoryId', categoriesController.removeCategory);
+app.delete('/categories/:categoryId', categoriesController.removeCategory);
 /**
  * OAuth authentication routes. (Sign in)
  */

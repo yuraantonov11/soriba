@@ -5,11 +5,13 @@ const { Schema } = mongoose;
 const productSchema = new Schema({
   _id: {
     type: Schema.Types.ObjectId,
-    default: new mongoose.Types.ObjectId()
+    default: mongoose.Types.ObjectId
   },
   name: String,
   title: String,
-  features: String,
+  features: [{
+    type: String
+  }],
   price: Number,
   rating: {
     type: Number,

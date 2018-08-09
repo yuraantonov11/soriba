@@ -13,9 +13,9 @@ block content
                         .card-body
                             p.title= product.title
                             ul
-                                each item in product.attributes
+                                each item in product.features
                                     li= item
-                            span.price= product.currency + product.price
+                            span.price $#{product.price}
 
                             - var n = 0;
                                 while n++ < 5

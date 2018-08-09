@@ -40,7 +40,8 @@ exports.add = (req, res) => {
   }
   Category.create({
     name: req.body.name
-  }, (err, small) => {
+  }, (err, category) => {
+    console.log(err);
     if (err) return res.status(500).send({ error: 'Something failed!' });
     // saved!
     res.sendStatus(201);
