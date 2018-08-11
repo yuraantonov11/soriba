@@ -162,3 +162,38 @@ input[name='category']{
   width: 100%;
   margin-top: 20px;
 }
+
+
+.file-upload input[type="file"]{
+  display: none;
+}
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  line-height:50px;
+  color: #fff;
+  text-align: center;
+  display: flex;
+}
+.file-upload label {
+  border-radius: 10px;
+  display: block;
+  height: 50px;
+  width: 100px;
+  background-color: #000;
+  color: #ffffff;
+  margin-right: 20px;
+  flex: none;
+}
+.preview-img{
+  max-height:100px;
+  width: 50%;
+  margin:5px;
+}
+.link{
+  color: gray;
+}
+.link:hover{
+  text-decoration: none;
+  color: gray;
+}
