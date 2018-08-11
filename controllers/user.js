@@ -1,10 +1,7 @@
-const { promisify } = require('util');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
-
-const randomBytesAsync = promisify(crypto.randomBytes);
 
 /**
  * GET /login
@@ -331,8 +328,7 @@ exports.postForgot = (req, res, next) => {
     return res.redirect('/forgot');
   }
 
-  const createRandomToken = randomBytesAsync(16)
-    .then(buf => buf.toString('hex'));
+  const createRandomToken = crypto.randomBytes(16, buf => buf.toString('hex'));
 
   const setRandomToken = token =>
     User
