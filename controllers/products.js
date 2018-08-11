@@ -11,10 +11,16 @@ exports.index = (req, res) => {
     .exec((err, products) => {
       if (err) return res.send(err);
       // this will log all of the users with each of their posts
-      res.render('products', {
-        title: 'All Products',
-        products
-      });
+      Category.find({})
+        .exec((err, categories) => {
+          if (err) console.log(err);
+          // this will log all of the users with each of their posts
+          res.render('products', {
+            title: 'All Products',
+            products,
+            categories
+          });
+        });
     });
 };
 

@@ -10,20 +10,14 @@ const userSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['researcher', 'user', 'admin']
+    enum: ['researcher', 'user', 'admin'],
+    default: 'user'
   },
   email: { type: String, unique: true },
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
 
-  facebook: String,
-  twitter: String,
-  google: String,
-  github: String,
-  instagram: String,
-  linkedin: String,
-  steam: String,
   tokens: Array,
 
   profile: {
