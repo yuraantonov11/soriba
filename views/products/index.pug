@@ -11,6 +11,7 @@ block content
                     .card.mb-3
                         img(src=product.image, height='200px', max-width='100%')
                         .card-body
+                            p.title= product.name
                             p.title= product.title
                             ul
                                 each item in product.features

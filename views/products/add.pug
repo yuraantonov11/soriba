@@ -5,7 +5,7 @@ block content
         h3= title
     .row
         .col-md-12
-            form(method='POST' action="/products")
+            form(method='POST', action='/products', enctype='multipart/form-data')
                 input(type='hidden', name='_csrf', value=_csrf)
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product name
