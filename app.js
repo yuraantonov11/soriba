@@ -36,7 +36,7 @@ const upload = multer({ storage });
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-require('dotenv-safe').config();
+// require('dotenv-safe').config();
 
 /**
  * Controllers (route handlers).
