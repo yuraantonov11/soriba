@@ -36,7 +36,7 @@ const upload = multer({ storage });
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
-dotenv.load({ path: '.env.example' });
+require('dotenv-safe').config();
 
 /**
  * Controllers (route handlers).
@@ -60,6 +60,7 @@ const app = express();
 /**
  * Connect to MongoDB.
  */
+console.log(process.env.MONGODB_URI)
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 mongoose.connection.on('error', (err) => {
   console.error(err);
@@ -97,7 +98,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 // app.use((req, res, next) => {
-//   if (req.path === '/api/upload') {
+//   if (reqMONGODB_URI.path === '/api/upload') {
 //     next();
 //   } else {
 //     lusca.csrf()(req, res, next);
