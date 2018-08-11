@@ -19,8 +19,6 @@ block content
                     label.col-md-3.col-form-label.font-weight-bold.text-right Product features
                     .col-md-7
                         input.form-control(type='text', name='features', required)
-                    .col-md-7
-                        input.form-control(type='text', name='features', required)
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-md-7
@@ -41,10 +39,17 @@ block content
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
                     .col-md-7
-                        input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
-                each category in categories
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
-                        input(type='checkbox', name='category' value=category._id id=category._id)
+                        .file-form-wrap
+                            .file-upload
+                                label
+                                    input(id="image" type="file" name="product-image" onchange="getFileParam();" accept=".png, .jpg, .jpeg" required)
+                                    span Choose file
+                                div(id="preview1") &nbsp;
+                        //input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
+                .form-group.row
+                    each category in categories
+                        label.col-md-2.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
+                            input(type='checkbox', name='category' value=category._id id=category._id)
                 .form-group.offset-sm-4.col-md-4.pl-2
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm
