@@ -181,7 +181,7 @@ app.delete('/categories/:categoryId', categoriesController.removeCategory);
  * Users routes.
  */
 app.get('/users-page', userController.index);
-// app.get('/users', categoriesController.getAllCategories);
+app.post('/users/:userId', userController.updateRole);
 // app.post('/users', categoriesController.add);
 // app.delete('/users/:userId', categoriesController.removeCategory);
 /**

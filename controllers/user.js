@@ -432,6 +432,7 @@ exports.postForgot = (req, res, next) => {
  * GET /
  * Users page.
  */
+
 exports.index = (req, res) => {
     User
         .find({})
@@ -443,4 +444,28 @@ exports.index = (req, res) => {
                 users
             });
         });
+};
+
+/**
+ * put /
+ * Change User role.
+ */
+
+
+exports.updateRole = (req, res) => {
+    if (req.user && (req.user.role !== 'admin')) {
+        return res.sendStatus(403);
+    }
+    if (!req.body.role) {
+        return res.status(500).send({ error: 'Bad request!' });
+    }
+
+    User.findById(req.params.userId, (err, user) => {
+        if (err) return res.sendStatus(500);
+        user.set({ role: req.body.role });
+        user.save((err, updatedUser) => {
+            if (err) return res.sendStatus(500);
+            res.send(updatedUser);
+        });
+    });
 };

@@ -5,12 +5,13 @@ block content
         h3 Sign up
     form(id='signup-form', method='POST')
         input(type='hidden', name='_csrf', value=_csrf)
-        .form-group.row
-            label.col-md-5.col-form-label.font-weight-bold.text-right(for='role') Admin
-            label.switch
-                input#role(type="checkbox")
-                span.slider
-            label.col-md-5.col-form-label.font-weight-bold.text-left(for='role') Writer
+        if user
+            .form-group.row
+                label.col-md-5.col-form-label.font-weight-bold.text-right(for='role') Admin
+                label.switch
+                    input#role(type='checkbox', name='role')
+                    span.slider
+                label.col-md-5.col-form-label.font-weight-bold.text-left(for='role') Researcher
         .form-group.row
             label.col-md-3.col-form-label.font-weight-bold.text-right(for='email') Email
             .col-md-7

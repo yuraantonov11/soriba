@@ -14,15 +14,20 @@ block content
                     th(scope='col') Role
                     th(scope='col') Products Page
                 tbody
-                    each user, index in users
+                    each userIterated, index in users
                         tr
                             th(scope='row')=index+1
                             td
-                                if user.profile.picture
-                                    img(src=user.profile.picture)
+                                if userIterated.profile.picture
+                                    img(src=userIterated.profile.picture)
                                 else
-                                    img(src=user.gravatar(60))
-                            td=user.email
-                            td=user.role
+                                    img(src=userIterated.gravatar(60))
+                            td=userIterated.email
                             td
-                                a(href='/'+user._id) Products Page
+                                select.change-user-role(value=userIterated.role, id=userIterated._id)
+                                    -
+                                        var roles = ['User', 'Admin', 'Researcher']
+                                    each role in roles
+                                        option(selected=role.toLowerCase() === userIterated.role)=role
+                            td
+                                a(href='/'+userIterated._id) Products Page

@@ -14,6 +14,15 @@ $(document).ready(() => {
             .catch(() => alert('error !'));
     };
 
+    $('.change-user-role').on('change', function () {
+        const conceptName = $(this).find(':selected').text().toLowerCase();
+
+        $.post(`${requestUrl}/users/${this.id}`, { role: conceptName })
+            .done(function( data ) {
+                if (!data) alert('error !');
+            });
+    });
+
     // eslint-disable-next-line no-unused-vars
     // window.addCategory = function () {
     //     const name = $('#addInput').val();
