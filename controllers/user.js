@@ -74,7 +74,7 @@ exports.logout = (req, res) => {
  * Signup page.
  */
 exports.getSignup = (req, res) => {
-    if (req.user && req.user.role === 'admin') {
+    if (req.user && (req.user.role !== 'admin')) {
         return res.redirect('/');
     }
     res.render('account/signup', {
