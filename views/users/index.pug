@@ -5,22 +5,24 @@ block content
         h3= title
 
     .row
-        each user in users
-            .col-md-4
-                a.link(href='/products/' + product._id)
-                    .card.mb-3
-                        img(src=product.image, height='200px', max-width='100%')
-                        .card-body
-                            p.title= product.name
-                            p.title= product.title
-                            ul
-                                each item in product.features
-                                    li= item
-                            span.price $#{product.price}
-
-                            - var n = 0;
-                                while n++ < 5
-                                    if product.rating < n
-                                        span.fa.fa-star
-                                    else
-                                        span.fa.fa-star.checked
+        table.table
+            thead
+                tr
+                    th(scope='col') #
+                    th(scope='col') Image
+                    th(scope='col') Email
+                    th(scope='col') Role
+                    th(scope='col') Products Page
+                tbody
+                    each user, index in users
+                        tr
+                            th(scope='row')=index+1
+                            td
+                                if user.profile.picture
+                                    img(src=user.profile.picture)
+                                else
+                                    img(src=user.gravatar(60))
+                            td=user.email
+                            td=user.role
+                            td
+                                a(href='/'+user._id) Products Page

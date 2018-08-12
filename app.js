@@ -180,10 +180,10 @@ app.delete('/categories/:categoryId', categoriesController.removeCategory);
 /**
  * Users routes.
  */
-app.get('/users-page', categoriesController.index);
-app.get('/users', categoriesController.getAllCategories);
-app.post('/users', categoriesController.add);
-app.delete('/users/:userId', categoriesController.removeCategory);
+app.get('/users-page', userController.index);
+// app.get('/users', categoriesController.getAllCategories);
+// app.post('/users', categoriesController.add);
+// app.delete('/users/:userId', categoriesController.removeCategory);
 /**
  * OAuth authentication routes. (Sign in)
  */
