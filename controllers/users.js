@@ -1,62 +1,62 @@
-const Category = require('../models/Category');
+const User = require('../models/User');
 
 /**
  * GET /
- * Categories page.
+ * Users page.
  */
 exports.index = (req, res) => {
-    Category
+    User
         .find({})
-        .exec((err, categories) => {
+        .exec((err, users) => {
             if (err) console.log(err);
             // this will log all of the users with each of their posts
-            res.render('categories', {
-                title: 'All categories',
-                categories
+            res.render('users', {
+                title: 'All users',
+                users
             });
         });
 };
 /**
  * GET /
- * all Categories.
+ * all Users.
  */
-exports.getAllCategories = (req, res) => {
-    Category
+exports.getAllUsers = (req, res) => {
+    User
         .find({})
-        .exec((err, categories) => {
+        .exec((err, users) => {
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
-            res.send(categories);
+            res.send(users);
         });
 };
 
 /**
  * POST /
- * Add Categories method.
+ * Add Users method.
  */
 exports.add = (req, res) => {
     if (!req.body.name) {
         return res.status(500).send({ error: 'Bad request!' });
     }
-    Category.create({
+    User.create({
         name: req.body.name
     }, (err) => {
         console.log(err);
         if (err) return res.status(500).send({ error: 'Something failed!' });
         // saved!
-        res.redirect('/categories-page');
+        res.redirect('/user-page');
     });
 };
 
 /**
  * GET /
- * Add Product page.
+ * Remove user
  */
-exports.removeCategory = (req, res) => {
-    Category.remove({ _id: req.params.categoryId })
-        .exec((err, categories) => {
+exports.removeUser = (req, res) => {
+    User.remove({ _id: req.params.userId })
+        .exec((err, user) => {
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
-            res.send(categories);
+            res.send(user);
         });
 };

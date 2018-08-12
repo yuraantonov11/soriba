@@ -3,10 +3,20 @@ extends ../layout
 block content
     .pb-2.mt-2.mb-4.border-bottom
         h3= title
-
+        form(method='POST' action="/categories")
+            input(type='hidden', name='_csrf', value=_csrf)
+            .form-group.row
+                label.col-md-3.col-form-label.font-weight-bold.text-right(for='addInput') Category name
+                .col-md-7
+                    input.form-control#addInput(type='text', name='name', required)
+            .form-group.offset-sm-3.col-md-7.pl-2
+                button.btn.btn-success(type='submit')
+                    i.fas.fa-plus.fa-sm
+                    | Create New
     .row
         each category in categories
-            .col-md-4
+            .col-md-4(id=category._id)
                 .card.mb-3
                     .card-body
                         p.title= category.name
+                        button.btn.btn-danger(onClick='deleteCategory("'+category._id+'")') delete

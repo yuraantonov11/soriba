@@ -1,7 +1,36 @@
 $(document).ready(() => {
+    const requestUrl = window.location.origin;
+    // categories
+    // eslint-disable-next-line no-unused-vars
+    window.deleteCategory = function (id) {
+        fetch(`${requestUrl}/categories/${id}`,
+            { method: 'delete' })
+            .then((response) => {
+                if (response.status === 200) {
+                    return $(`#${id}`).remove();
+                }
+                alert('error !');
+            })
+            .catch(() => alert('error !'));
+    };
 
-  // Place JavaScript code here...
-
+    // eslint-disable-next-line no-unused-vars
+    // window.addCategory = function () {
+    //     const name = $('#addInput').val();
+    //     console.log(name);
+    //     fetch(`${requestUrl}/categories/`, {
+    //         method: 'post',
+    //         body: { name },
+    //     })
+    //         .then((response) => {
+    //             if (response.status === 201) {
+    //                 // eslint-disable-next-line no-restricted-globals
+    //                 return location.reload();
+    //             }
+    //             alert('error !');
+    //         })
+    //         .catch(() => alert('error !'));
+    // };
 });
 
 function getFileParam() {
@@ -9,59 +38,59 @@ function getFileParam() {
         var file = document.getElementById('image').files[0];
 
         if (file) {
-            var fileSize = 0;
+            let fileSize = 0;
 
             if (file.size > 1024 * 1024) {
-                fileSize = (Math.round(file.size * 100 / (1024 * 1024)) / 100).toString() + 'MB';
-            }else {
-                fileSize = (Math.round(file.size * 100 / 1024) / 100).toString() + 'KB';
+                fileSize = `${(Math.round(file.size * 100 / (1024 * 1024)) / 100).toString()}MB`;
+            } else {
+                fileSize = `${(Math.round(file.size * 100 / 1024) / 100).toString()}KB`;
             }
 
             // document.getElementById('file-name1').innerHTML = 'Имя: ' + file.name;
             // document.getElementById('file-size1').innerHTML = 'Размер: ' + fileSize;
 
             if (/\.(jpe?g|bmp|gif|png)$/i.test(file.name)) {
-                var elPreview = document.getElementById('preview1');
+                const elPreview = document.getElementById('preview1');
                 elPreview.innerHTML = '';
-                var newImg = document.createElement('img');
-                newImg.className = "preview-img";
+                const newImg = document.createElement('img');
+                newImg.className = 'preview-img';
 
-                if (typeof file.getAsDataURL=='function') {
-                    if (file.getAsDataURL().substr(0,11)=='data:image/') {
-                        newImg.onload=function() {
+                if (typeof file.getAsDataURL === 'function') {
+                    if (file.getAsDataURL().substr(0, 11) == 'data:image/') {
+                        newImg.onload = function () {
                             // document.getElementById('file-name1').innerHTML+=' ('+newImg.naturalWidth+'x'+newImg.naturalHeight+' px)';
-                        }
-                        newImg.setAttribute('src',file.getAsDataURL());
+                        };
+                        newImg.setAttribute('src', file.getAsDataURL());
                         elPreview.appendChild(newImg);
                     }
-                }else {
-                    var reader = new FileReader();
-                    reader.onloadend = function(evt) {
+                } else {
+                    const reader = new FileReader();
+                    reader.onloadend = function (evt) {
                         if (evt.target.readyState == FileReader.DONE) {
-                            newImg.onload=function() {
+                            newImg.onload = function () {
                                 // document.getElementById('file-name1').innerHTML+=' ('+newImg.naturalWidth+'x'+newImg.naturalHeight+' px)';
-                            }
+                            };
 
                             newImg.setAttribute('src', evt.target.result);
                             elPreview.appendChild(newImg);
                         }
                     };
 
-                    var blob;
+                    let blob;
                     if (file.slice) {
                         blob = file.slice(0, file.size);
-                    }else if (file.webkitSlice) {
+                    } else if (file.webkitSlice) {
                         blob = file.webkitSlice(0, file.size);
-                    }else if (file.mozSlice) {
+                    } else if (file.mozSlice) {
                         blob = file.mozSlice(0, file.size);
                     }
                     reader.readAsDataURL(blob);
                 }
             }
         }
-    }catch(e) {
+    } catch (e) {
         var file = document.getElementById('image').value;
-        file = file.replace(/\\/g, "/").split('/').pop();
-        // document.getElementById('file-name1').innerHTML = 'Имя: ' + file;
+        file = file.replace(/\\/g, '/').split('/').pop();
+    // document.getElementById('file-name1').innerHTML = 'Имя: ' + file;
     }
 }

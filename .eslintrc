@@ -3,6 +3,8 @@
   "env": {
     "node": true,
     "mocha": true,
+    "browser": true,
+    "jquery": true,
     "es6": true
   },
   "plugins": ["chai-friendly"],
@@ -11,6 +13,7 @@
     "consistent-return": 0,
     "function-paren-newline": ["error", "never"],
     "implicit-arrow-linebreak": ["off"],
+    "indent": ["warn", 4],
     "linebreak-style": ["off"],
     "no-param-reassign": 0,
     "no-underscore-dangle": 0,
