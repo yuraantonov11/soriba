@@ -1,0 +1,26 @@
+extends ../layout
+
+block content
+    .pb-2.mt-2.mb-4.border-bottom
+        h3= title
+
+    .row
+        each user in users
+            .col-md-4
+                a.link(href='/products/' + product._id)
+                    .card.mb-3
+                        img(src=product.image, height='200px', max-width='100%')
+                        .card-body
+                            p.title= product.name
+                            p.title= product.title
+                            ul
+                                each item in product.features
+                                    li= item
+                            span.price $#{product.price}
+
+                            - var n = 0;
+                                while n++ < 5
+                                    if product.rating < n
+                                        span.fa.fa-star
+                                    else
+                                        span.fa.fa-star.checked
