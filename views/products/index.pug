@@ -16,6 +16,8 @@ block content
             .col-md-4
                 a.link(href='/products/' + product._id)
                     .card.mb-3
+                        if (product.choice)
+                            img(src='/img/best_choice.png', height='20px', max-width='100%')
                         img(src=product.image, height='200px', max-width='100%')
                         .card-body
                             p.title= product.name
@@ -31,3 +33,5 @@ block content
                                         span.fa.fa-star
                                     else
                                         span.fa.fa-star.checked
+                            if(product.rating === 5)
+                                img(src='/img/save.png', height='20px', max-width='100%')

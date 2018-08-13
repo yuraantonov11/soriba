@@ -57,10 +57,12 @@ exports.product = (req, res) => {
  */
 exports.add = (req, res) => {
     const { body, user } = req;
+    console.log(body);
     // return res.send(body)
     Product.create({
         name: body.name,
         title: body.title,
+        choice: (body.choice === 'on'),
         features: body.features,
         price: body.price,
         rating: body.rating,
@@ -70,6 +72,7 @@ exports.add = (req, res) => {
         creator: user._id,
     }, (err, product) => {
         if (err) {
+            console.error(err);
             req.flash('errors', err);
             return res.redirect('/login');
         }
@@ -91,7 +94,6 @@ exports.addPage = (req, res) => {
         .exec((err, categories) => {
             if (err) console.log(err);
             // this will log all of the users with each of their posts
-            console.log(categories);
             res.render('products/add', {
                 title: 'Add new Product',
                 categories
