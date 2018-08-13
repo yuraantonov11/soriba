@@ -8,6 +8,10 @@ const productSchema = new Schema({
         default: mongoose.Types.ObjectId
     },
     name: String,
+    choice: {
+        type: Schema.Types.Boolean,
+        default: false
+    },
     title: String,
     features: [{
         type: String
