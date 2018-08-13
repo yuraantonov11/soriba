@@ -61,6 +61,7 @@ exports.add = (req, res) => {
     Product.create({
         name: body.name,
         title: body.title,
+        choice: body.choice,
         features: body.features,
         price: body.price,
         rating: body.rating,
