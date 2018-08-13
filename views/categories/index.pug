@@ -15,9 +15,9 @@ block content
                     | Create New
     .row
         each category in categories
-            .col-md-4.catName(id=category._id)
+            .col-md-4(id=category._id)
                 .card.mb-3
-                    .card-body
+                    .card-body.catName
                         p.title= category.name
                         button.btn.btn-danger(onClick='deleteCategory("'+category._id+'")')
                             i.fas.fa-trash-alt.fa-sm
