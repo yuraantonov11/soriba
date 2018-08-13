@@ -19,4 +19,6 @@ block content
                 .card.mb-3
                     .card-body
                         p.title= category.name
-                        button.btn.btn-danger(onClick='deleteCategory("'+category._id+'")') delete
+                        button.btn.btn-danger(onClick='deleteCategory("'+category._id+'")')
+                            i.fas.fa-trash-alt.fa-sm
+                            | Delete category

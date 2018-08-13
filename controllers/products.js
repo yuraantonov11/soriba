@@ -6,20 +6,20 @@ const Category = require('../models/Category');
  * Products page.
  */
 exports.index = (req, res) => {
-  Product
+    Product
     .find({})
     .exec((err, products) => {
-      if (err) return res.send(err);
-      // this will log all of the users with each of their posts
-      Category.find({})
+        if (err) return res.send(err);
+        // this will log all of the users with each of their posts
+        Category.find({})
         .exec((err, categories) => {
-          if (err) console.log(err);
-          // this will log all of the users with each of their posts
-          res.render('products', {
-            title: 'All Products',
-            products,
-            categories
-          });
+            if (err) console.log(err);
+            // this will log all of the users with each of their posts
+            res.render('products', {
+                title: 'All Products',
+                products,
+                categories
+            });
         });
     });
 };
@@ -30,12 +30,12 @@ exports.index = (req, res) => {
  * Products page.
  */
 exports.getAll = (req, res) => {
-  Product
+    Product
     .find({})
     .exec((err, products) => {
-      if (err) return res.send(err);
-      // this will log all of the users with each of their posts
-      res.send(products);
+        if (err) return res.send(err);
+        // this will log all of the users with each of their posts
+        res.send(products);
     });
 };
 
@@ -44,10 +44,10 @@ exports.getAll = (req, res) => {
  * Product page.
  */
 exports.product = (req, res) => {
-  res.render('products/product', {
-    title: 'Product',
-    // products: products[0]
-  });
+    res.render('products/product', {
+        title: 'Product',
+        // products: products[0]
+    });
 };
 
 
@@ -56,27 +56,26 @@ exports.product = (req, res) => {
  * Add Product pethod.
  */
 exports.add = (req, res) => {
-  const { body } = req;
-  console.log(req.body);
-  console.log(req.file);
-  // return res.send(body)
-  Product.create({
-    name: body.name,
-    title: body.title,
-    features: body.features,
-    price: body.price,
-    rating: body.rating,
-    link: body.link,
-    image: req.file.path,
-    categories: body.categories,
-  }, (err, small) => {
-    if (err) return handleError(err);
-    // saved!
-    res.send('OK');
-  });
-  // res.render('products/product', {
-  //   title: 'Add new Product'
-  // });
+    const { body, user } = req;
+    // return res.send(body)
+    Product.create({
+        name: body.name,
+        title: body.title,
+        features: body.features,
+        price: body.price,
+        rating: body.rating,
+        link: body.link,
+        image: req.file.path,
+        categories: body.categories,
+        creator: user._id,
+    }, (err, small) => {
+        if (err) return handleError(err);
+        // saved!
+        res.send('OK');
+    });
+    // res.render('products/product', {
+    //   title: 'Add new Product'
+    // });
 };
 
 /**
@@ -84,14 +83,14 @@ exports.add = (req, res) => {
  * Add Product page.
  */
 exports.addPage = (req, res) => {
-  Category.find({})
+    Category.find({})
     .exec((err, categories) => {
-      if (err) console.log(err);
-      // this will log all of the users with each of their posts
-      console.log(categories);
-      res.render('products/add', {
-        title: 'Add new Product',
-        categories
-      });
+        if (err) console.log(err);
+        // this will log all of the users with each of their posts
+        console.log(categories);
+        res.render('products/add', {
+            title: 'Add new Product',
+            categories
+        });
     });
 };

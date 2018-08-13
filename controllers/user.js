@@ -3,6 +3,8 @@ const crypto = require('crypto');
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 const randomBytesAsync = promisify(crypto.randomBytes);
 
@@ -457,7 +459,8 @@ exports.updateRole = (req, res) => {
         return res.sendStatus(403);
     }
     if (!req.body.role) {
-        return res.status(500).send({ error: 'Bad request!' });
+        return res.status(500)
+            .send({ error: 'Bad request!' });
     }
 
     User.findById(req.params.userId, (err, user) => {
@@ -468,4 +471,29 @@ exports.updateRole = (req, res) => {
             res.send(updatedUser);
         });
     });
+};
+
+/**
+ * get /
+ * User products.
+ */
+
+exports.getUserProducts = (req, res) => {
+    Product
+        .find({})
+        .where('creator').equals(req.params.userId)
+        .exec((err, products) => {
+            if (err) return res.send(err);
+            // this will log all of the users with each of their posts
+            Category.find({})
+                .exec((err, categories) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    res.render('products', {
+                        title: 'User Products',
+                        products,
+                        categories
+                    });
+                });
+        });
 };

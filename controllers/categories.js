@@ -44,7 +44,8 @@ exports.add = (req, res) => {
         console.log(err);
         if (err) return res.status(500).send({ error: 'Something failed!' });
         // saved!
-        res.redirect('/categories-page');
+        req.flash('success', { msg: 'Category added.' });
+        return res.redirect('/categories-page');
     });
 };
 
@@ -55,8 +56,12 @@ exports.add = (req, res) => {
 exports.removeCategory = (req, res) => {
     Category.remove({ _id: req.params.categoryId })
         .exec((err, categories) => {
-            if (err) return res.send(err);
+            if (err) {
+                req.flash('error', { msg: 'Category not removed.' });
+            } else {
+                req.flash('success', { msg: 'Category removed.' });
+            }
             // this will log all of the users with each of their posts
-            res.send(categories);
+            return res.redirect('/categories-page');
         });
 };

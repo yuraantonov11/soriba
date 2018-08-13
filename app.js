@@ -126,7 +126,7 @@ app.use((req, res, next) => {
     next();
 });
 
-app.use('/uploads', express.static('uploads'));
+app.use('*/uploads', express.static('uploads'));
 
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
@@ -182,6 +182,7 @@ app.delete('/categories/:categoryId', categoriesController.removeCategory);
  */
 app.get('/users-page', userController.index);
 app.post('/users/:userId', userController.updateRole);
+app.get('/users/:userId/products', userController.getUserProducts);
 // app.post('/users', categoriesController.add);
 // app.delete('/users/:userId', categoriesController.removeCategory);
 /**
