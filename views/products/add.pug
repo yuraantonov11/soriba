@@ -16,9 +16,15 @@ block content
                     .col-md-7
                         input.form-control(type='text', name='title', id='title', required)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right Product features
+                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Sansavvy Choice
                     .col-md-7
-                        input.form-control(type='text', name='features', required)
+                        input.form-control(type='checkbox', name='title', id='title', required)
+                - var n = 1;
+                while n < 7
+                    .form-group.row
+                        label.col-md-3.col-form-label.font-weight-bold.text-right Product feature: #{n++}
+                        .col-md-7
+                            input.form-control(type='text', name='features', required)
                 .form-group.row
                     label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-md-7
