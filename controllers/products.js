@@ -7,21 +7,21 @@ const Category = require('../models/Category');
  */
 exports.index = (req, res) => {
     Product
-    .find({})
-    .exec((err, products) => {
-        if (err) return res.send(err);
-        // this will log all of the users with each of their posts
-        Category.find({})
-        .exec((err, categories) => {
-            if (err) console.log(err);
+        .find({})
+        .exec((err, products) => {
+            if (err) return res.send(err);
             // this will log all of the users with each of their posts
-            res.render('products', {
-                title: 'All Products',
-                products,
-                categories
-            });
+            Category.find({})
+                .exec((err, categories) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    res.render('products', {
+                        title: 'All Products',
+                        products,
+                        categories
+                    });
+                });
         });
-    });
 };
 
 
@@ -31,12 +31,12 @@ exports.index = (req, res) => {
  */
 exports.getAll = (req, res) => {
     Product
-    .find({})
-    .exec((err, products) => {
-        if (err) return res.send(err);
-        // this will log all of the users with each of their posts
-        res.send(products);
-    });
+        .find({})
+        .exec((err, products) => {
+            if (err) return res.send(err);
+            // this will log all of the users with each of their posts
+            res.send(products);
+        });
 };
 
 /**
@@ -68,10 +68,14 @@ exports.add = (req, res) => {
         image: req.file.path,
         categories: body.categories,
         creator: user._id,
-    }, (err, small) => {
-        if (err) return handleError(err);
+    }, (err, product) => {
+        if (err) {
+            req.flash('errors', err);
+            return res.redirect('/login');
+        }
         // saved!
-        res.send('OK');
+        // return res.redirect(`/products-page/${product._id}`);
+        return res.redirect('/products-page/');
     });
     // res.render('products/product', {
     //   title: 'Add new Product'
@@ -84,13 +88,13 @@ exports.add = (req, res) => {
  */
 exports.addPage = (req, res) => {
     Category.find({})
-    .exec((err, categories) => {
-        if (err) console.log(err);
-        // this will log all of the users with each of their posts
-        console.log(categories);
-        res.render('products/add', {
-            title: 'Add new Product',
-            categories
+        .exec((err, categories) => {
+            if (err) console.log(err);
+            // this will log all of the users with each of their posts
+            console.log(categories);
+            res.render('products/add', {
+                title: 'Add new Product',
+                categories
+            });
         });
-    });
 };
