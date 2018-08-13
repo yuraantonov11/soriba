@@ -176,7 +176,6 @@ input[name='category']{
   display: flex;
 }
 .file-upload label {
-  border-radius: 10px;
   display: block;
   height: 50px;
   width: 100px;
@@ -186,8 +185,9 @@ input[name='category']{
   flex: none;
 }
 .preview-img{
-  max-height:100px;
+  height:auto;
   width: 50%;
+  max-width: 100%;
   margin:5px;
 }
 .link{
@@ -196,6 +196,17 @@ input[name='category']{
 .link:hover{
   text-decoration: none;
   color: gray;
+}
+.listWrap{
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.sansChoice{
+  width: 15px;
+  height: 15px;
+  margin-top: 10px;
+  margin-left: 15px;
 }
 // swicher
 .switch {
