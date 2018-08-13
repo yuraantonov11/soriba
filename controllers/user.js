@@ -105,10 +105,18 @@ exports.postSignup = (req, res, next) => {
         return res.redirect('/signup');
     }
 
-    const user = new User({
+    const userData = {
         email: req.body.email,
         password: req.body.password
-    });
+    };
+    if (req.user && (req.user.role !== 'admin')) {
+        if (req.body.role === 'on') {
+            userData.role = 'admin';
+        } else {
+            userData.role = 'researcher';
+        }
+    }
+    const user = new User(userData);
 
     User.findOne({ email: req.body.email }, (err, existingUser) => {
         if (err) {
