@@ -8,28 +8,28 @@ block content
             form(method='POST', action='/products', enctype='multipart/form-data')
                 input(type='hidden', name='_csrf', value=_csrf)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product name
-                    .col-md-7
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product name
+                    .col-sm-9.col-md-7
                         input.form-control(type='text', name='name', id='name', required)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product title
-                    .col-md-7
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product title
+                    .col-sm-9.col-md-7
                         input.form-control(type='text', name='title', id='title', required)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='choice') Sansavvy Choice
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='choice') Sansavvy Choice
                     input.form-control.sansChoice(type='checkbox', name='choice', id='choice', required)
                 .listWrap
                     - var n = 1;
                     while n < 7
                         .form-group.row
-                            label.col-md-3.col-form-label.font-weight-bold.text-right Product feature: #{n++}
-                            .col-md-9
+                            label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right Product feature: #{n++}
+                            .col-sm-9.col-md-9
                                 input.form-control(type='text', name='features', required)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
-                    .col-md-7
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
+                    .col-sm-9.col-md-7
                         input.form-control(type='number', name='price', id='price', required)
-                label.col-md-3.col-form-label.font-weight-bold.text-right(for='rating') Rating
+                label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='rating') Rating
                 select(name='rating' id='rating')
                     option 0
                     option 1
@@ -39,12 +39,12 @@ block content
                     option 5
                 span.fa.fa-star
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='link') Product link
-                    .col-md-7
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='link') Product link
+                    .col-sm-9.col-md-7
                         input.form-control(type='text', name='link', id='link', required)
                 .form-group.row
-                    label.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
-                    .col-md-7
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
+                    .col-sm-9.col-md-7
                         .file-form-wrap
                             .file-upload
                                 label
@@ -54,9 +54,9 @@ block content
                         //input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
                 .form-group.row
                     each category in categories
-                        label.col-md-2.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
+                        label.col-sm-2.col-md-2.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
                             input(type='checkbox', name='category' value=category._id id=category._id)
-                .form-group.offset-sm-4.col-md-4.pl-2
+                .form-group.offset-lg-4.col-md-4.pl-2
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm
                         | Create
