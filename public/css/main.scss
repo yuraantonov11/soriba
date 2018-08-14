@@ -274,10 +274,17 @@ input:checked + .slider:before {
 .cartWrap .card-body{
   position: relative;
 }
-.cartWrap .card-body img{
+.cartWrap .card-body img:not(.checkOut){
   position: absolute;
   bottom: 15px;
   right: 15px;
+}
+.cartWrap .card-body{
+  padding-bottom: 50px;
+}
+.checkOut{
+  position: relative;
+  right: -125px;
 }
 
 @media (max-width: 991px) {
