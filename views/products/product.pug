@@ -1,16 +1,16 @@
 .card.mb-3
     if (product.choice)
-        img(src='/img/best_choice.png', height='20px', max-width='100%')
-    img(src=product.image, height='200px', max-width='100%')
-    .btn-group
-        button.btn.btn-danger.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-            | Action
-        .dropdown-menu
-            a.dropdown-item(href='#') Action
-            a.dropdown-item(href='#') Another action
-            a.dropdown-item(href='#') Something else here
-            .dropdown-divider
-            a.dropdown-item(href='#') Separated link
+        img.bestProduct(src='/img/best_choice.png', height='20px', max-width='100%')
+    img(src=product.image, max-width='100%')
+    //.btn-group
+    //    button.btn.btn-danger.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+    //        | Action
+    //    .dropdown-menu
+    //        a.dropdown-item(href='#') Action
+    //        a.dropdown-item(href='#') Another action
+    //        a.dropdown-item(href='#') Something else here
+    //        .dropdown-divider
+    //        a.dropdown-item(href='#') Separated link
     .card-body
         p.title= product.name
         p.title= product.title
