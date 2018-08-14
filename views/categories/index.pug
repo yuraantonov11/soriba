@@ -13,12 +13,12 @@ block content
                 button.btn.btn-success(type='submit')
                     i.fas.fa-plus.fa-sm
                     | Create New
-    .row
-        each category in categories
-            .col-md-4(id=category._id)
-                .card.mb-3
-                    .card-body.catName
+    each category in categories
+        .row
+            .offset-sm-4.col-md-4(id=category._id)
+                .carWrap.card.mb-3
+                    .card-body.catName.text-center
                         p.title= category.name
-                        button.btn.btn-danger(onClick='deleteCategory("'+category._id+'")')
+                        button.btn.btn-danger(onClick='deleteCategory("' + category._id + '")')
                             i.fas.fa-trash-alt.fa-sm
                             | Delete category

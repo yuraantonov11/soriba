@@ -187,6 +187,13 @@ input[name='category']{
 .link{
   color: gray;
 }
+.cartWrap .card.mb-3 > img:not(.bestProduct){
+  height: 200px;
+  width: 100%;
+}
+.link img{
+  max-width: 100%;
+}
 .link:hover{
   text-decoration: none;
   color: gray;
@@ -252,7 +259,19 @@ input:checked + .slider:before {
   transform: translateX(28px);
 }
 .catName{
-  background: linear-gradient(27deg,#73bca0,#a575f4);
+  background: lightgrey;
+}
+.carWrap.card.mb-3{
+  border-radius: 0;
+  box-shadow: 1px 1px 5px rgba(0,0,0, 0.91), 1px 1px 0 rgba(0,0,0, 0.91) inset;
+}
+.cartWrap .card-body{
+  position: relative;
+}
+.cartWrap .card-body img{
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
 }
 
 @media (max-width: 991px) {

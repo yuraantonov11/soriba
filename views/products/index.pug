@@ -7,5 +7,5 @@ block content
     .row
         each product in products
             .col-md-4
-                a.link(href='/products/' + product._id)
+                a.link.cartWrap(href='/products/' + product._id)
                     include product
