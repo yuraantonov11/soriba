@@ -264,6 +264,12 @@ input:checked + .slider:before {
 .carWrap.card.mb-3{
   border-radius: 0;
   box-shadow: 1px 1px 5px rgba(0,0,0, 0.91), 1px 1px 0 rgba(0,0,0, 0.91) inset;
+  position: relative;
+}
+.bestProduct{
+  position: absolute;
+  top: 0;
+  left: -9px;
 }
 .cartWrap .card-body{
   position: relative;
