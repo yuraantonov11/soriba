@@ -23,23 +23,10 @@ $(document).ready(() => {
             });
     });
 
-    // eslint-disable-next-line no-unused-vars
-    // window.addCategory = function () {
-    //     const name = $('#addInput').val();
-    //     console.log(name);
-    //     fetch(`${requestUrl}/categories/`, {
-    //         method: 'post',
-    //         body: { name },
-    //     })
-    //         .then((response) => {
-    //             if (response.status === 201) {
-    //                 // eslint-disable-next-line no-restricted-globals
-    //                 return location.reload();
-    //             }
-    //             alert('error !');
-    //         })
-    //         .catch(() => alert('error !'));
-    // };
+    $('#product-review-modal').on('show.bs.modal', () => {
+        const formData = $('form').serializeArray();
+        console.log(formData);
+    })
 });
 
 function getFileParam() {

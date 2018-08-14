@@ -56,10 +56,23 @@ block content
                     each category in categories
                         label.col-sm-2.col-md-2.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
                             input(type='checkbox', name='category' value=category._id id=category._id)
-                .form-group.offset-lg-4.col-md-4.pl-2
+                .form-group.offset-lg-4.col-md-4.pl-2.row
                     button.btn.btn-success(type='submit')
                         i.fas.fa-plus.fa-sm
                         | Create
-                    button.btn.btn-success(type='submit')
-                        i.fas.fa-plus.fa-sm
+                    button.btn.btn-secondary.ml-auto(type='button', data-toggle='modal', data-target='#product-review-modal')
+                        i.fas.fa-eye.fa-sm
                         | Preview
+        // Modal
+        #product-review-modal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+            .modal-dialog.modal-dialog-centered(role='document')
+                .modal-content
+                    .modal-header
+                        h5#exampleModalCenterTitle.modal-title Modal title
+                        button.close(type='button', data-dismiss='modal', aria-label='Close')
+                            span(aria-hidden='true') ×
+                    .modal-body
+                        - var product = {features: []}
+                        include product
+                    .modal-footer
+                        button.btn.btn-secondary(type='button', data-dismiss='modal') Close
