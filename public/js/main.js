@@ -18,28 +18,21 @@ $(document).ready(() => {
         const conceptName = $(this).find(':selected').text().toLowerCase();
 
         $.post(`${requestUrl}/users/${this.id}`, { role: conceptName })
-            .done(function( data ) {
+            .done((data) => {
                 if (!data) alert('error !');
             });
     });
 
-    // eslint-disable-next-line no-unused-vars
-    // window.addCategory = function () {
-    //     const name = $('#addInput').val();
-    //     console.log(name);
-    //     fetch(`${requestUrl}/categories/`, {
-    //         method: 'post',
-    //         body: { name },
-    //     })
-    //         .then((response) => {
-    //             if (response.status === 201) {
-    //                 // eslint-disable-next-line no-restricted-globals
-    //                 return location.reload();
-    //             }
-    //             alert('error !');
-    //         })
-    //         .catch(() => alert('error !'));
-    // };
+    $('#product-review-modal').on('show.bs.modal', () => {
+        const modal = $('#product-review-modal');
+        const formData = $('form').serializeArray();
+        formData.forEach((element) => {
+            if (element.name === 'features') {
+                modal.find(`.${element.name}`).append(`<li>${element.value}</li>`);
+            }
+            modal.find(`.${element.name}:empty`).text(element.value);
+        });
+    });
 });
 
 function getFileParam() {
