@@ -8,8 +8,8 @@
             span.navbar-toggler-icon
         .collapse.navbar-collapse
             ul.nav.navbar-nav
-                li.nav-item(class=(title === 'Home') ? 'active' : undefined)
-                    a.nav-link(href='/') Home
+                li.nav-item(class=(title === 'Demo') ? 'active' : undefined)
+                    a.nav-link(href='/') Demo
                 li.nav-item(class=(title === 'All Products') ? 'active' : undefined)
                     a.nav-link(href='/products-page') All Products
                 li.nav-item(class=(title === 'Add Product') ? 'active' : undefined)
@@ -19,6 +19,8 @@
                 if user && user.role === 'admin'
                     li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
                         a.nav-link(href='/users-page') Users
+                    li.nav-item(class=(title === 'Create user') ? 'active' : undefined)
+                        a.nav-link(href='/signup') Create user
                 //li.nav-item(class=(title === 'Contact') ? 'active' : undefined)
                 //  a.nav-link(href='/contact') Contact
             ul.nav.navbar-nav.ml-auto

@@ -5,33 +5,7 @@ block content
         h3= title
 
     .row
-        each category in categories
-            .col-md-4
-                .card.mb-3
-                    .card-body
-                        p.title= category.name
-
-    .row
         each product in products
             .col-md-4
                 a.link(href='/products/' + product._id)
-                    .card.mb-3
-                        if (product.choice)
-                            img(src='/img/best_choice.png', height='20px', max-width='100%')
-                        img(src=product.image, height='200px', max-width='100%')
-                        .card-body
-                            p.title= product.name
-                            p.title= product.title
-                            ul
-                                each item in product.features
-                                    li= item
-                            span.price $#{product.price}
-
-                            - var n = 0;
-                                while n++ < 5
-                                    if product.rating < n
-                                        span.fa.fa-star
-                                    else
-                                        span.fa.fa-star.checked
-                            if(product.rating === 5)
-                                img(src='/img/save.png', height='20px', max-width='100%')
+                    include product
