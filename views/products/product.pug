@@ -12,11 +12,11 @@
     //        .dropdown-divider
     //        a.dropdown-item(href='#') Separated link
     .card-body
-        p.title= product.name
+        p.name= product.name
         p.title= product.title
-        ul
+        ul.features
             each item in product.features
-                li= item
+                li.feature= item
         span.price $#{product.price}
         img(srs="/img/checkout.png")
 
