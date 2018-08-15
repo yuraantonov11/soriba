@@ -1,3 +1,14 @@
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.preview-image').attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 $(document).ready(() => {
     const requestUrl = window.location.origin;
     // categories
@@ -26,73 +37,31 @@ $(document).ready(() => {
     $('#product-review-modal').on('show.bs.modal', () => {
         const modal = $('#product-review-modal');
         const formData = $('form').serializeArray();
+
+        const showChoice = formData.some(element => element.name === 'choice');
+        modal.find('.bestProduct').toggle(showChoice);
+
         formData.forEach((element) => {
-            if (element.name === 'features') {
+            if (element.name === 'features' && element.value !== '') {
                 modal.find(`.${element.name}`).append(`<li>${element.value}</li>`);
+            } else if (element.name === 'link') {
+                modal.find(`.${element.name}`).attr('href', element.value);
+            } else if (element.name === 'rating') {
+                const stars = modal.find('.rating>span.fa-star');
+                stars.each(function (index) {
+                    $(this).toggleClass('checked', index < element.value);
+                });
+            } else {
+                modal.find(`.${element.name}:empty`).text(element.value);
             }
-            modal.find(`.${element.name}:empty`).text(element.value);
         });
     });
+    $('#product-review-modal').on('hidden.bs.modal', () => {
+        const modal = $('#product-review-modal');
+        console.log(modal.find('.features'));
+        modal.find('.features').empty();
+    });
+    $('#imgInp').change(function () {
+        readURL(this);
+    });
 });
-
-function getFileParam() {
-    try {
-        var file = document.getElementById('image').files[0];
-
-        if (file) {
-            let fileSize = 0;
-
-            if (file.size > 1024 * 1024) {
-                fileSize = `${(Math.round(file.size * 100 / (1024 * 1024)) / 100).toString()}MB`;
-            } else {
-                fileSize = `${(Math.round(file.size * 100 / 1024) / 100).toString()}KB`;
-            }
-
-            // document.getElementById('file-name1').innerHTML = 'Имя: ' + file.name;
-            // document.getElementById('file-size1').innerHTML = 'Размер: ' + fileSize;
-
-            if (/\.(jpe?g|bmp|gif|png)$/i.test(file.name)) {
-                const elPreview = document.getElementById('preview1');
-                elPreview.innerHTML = '';
-                const newImg = document.createElement('img');
-                newImg.className = 'preview-img';
-
-                if (typeof file.getAsDataURL === 'function') {
-                    if (file.getAsDataURL().substr(0, 11) == 'data:image/') {
-                        newImg.onload = function () {
-                            // document.getElementById('file-name1').innerHTML+=' ('+newImg.naturalWidth+'x'+newImg.naturalHeight+' px)';
-                        };
-                        newImg.setAttribute('src', file.getAsDataURL());
-                        elPreview.appendChild(newImg);
-                    }
-                } else {
-                    const reader = new FileReader();
-                    reader.onloadend = function (evt) {
-                        if (evt.target.readyState == FileReader.DONE) {
-                            newImg.onload = function () {
-                                // document.getElementById('file-name1').innerHTML+=' ('+newImg.naturalWidth+'x'+newImg.naturalHeight+' px)';
-                            };
-
-                            newImg.setAttribute('src', evt.target.result);
-                            elPreview.appendChild(newImg);
-                        }
-                    };
-
-                    let blob;
-                    if (file.slice) {
-                        blob = file.slice(0, file.size);
-                    } else if (file.webkitSlice) {
-                        blob = file.webkitSlice(0, file.size);
-                    } else if (file.mozSlice) {
-                        blob = file.mozSlice(0, file.size);
-                    }
-                    reader.readAsDataURL(blob);
-                }
-            }
-        }
-    } catch (e) {
-        var file = document.getElementById('image').value;
-        file = file.replace(/\\/g, '/').split('/').pop();
-    // document.getElementById('file-name1').innerHTML = 'Имя: ' + file;
-    }
-}

@@ -17,7 +17,7 @@ block content
                         input.form-control(type='text', name='title', id='title', required)
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='choice') Sansavvy Choice
-                    input.form-control.sansChoice(type='checkbox', name='choice', id='choice', required)
+                    input.form-control.sansChoice(type='checkbox', name='choice', id='choice')
                 .listWrap
                     - var n = 1;
                     while n < 7
@@ -43,14 +43,15 @@ block content
                     .col-sm-9.col-md-7
                         input.form-control(type='text', name='link', id='link', required)
                 .form-group.row
-                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='imgInp') Product image
                     .col-sm-9.col-md-7
                         .file-form-wrap
                             .file-upload
                                 label
-                                    input(id="image" type="file" name="product-image" onchange="getFileParam();" accept=".png, .jpg, .jpeg" required)
+                                    input(id="imgInp" type="file" name="product-image" accept=".png, .jpg, .jpeg" required)
                                     span Choose file
-                                div(id="preview1") &nbsp;
+                                div
+                                    img.preview-image
                         //input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
                 .form-group.row
                     each category in categories
@@ -68,11 +69,11 @@ block content
             .modal-dialog.modal-dialog-centered(role='document')
                 .modal-content
                     .modal-header
-                        h5#exampleModalCenterTitle.modal-title Modal title
+                        h5#exampleModalCenterTitle.modal-title Product preview
                         button.close(type='button', data-dismiss='modal', aria-label='Close')
                             span(aria-hidden='true') ×
                     .modal-body
-                        - var product = {features: []}
+                        - var product = {features: [], choice: true}
                         include product
                     .modal-footer
                         button.btn.btn-secondary(type='button', data-dismiss='modal') Close
