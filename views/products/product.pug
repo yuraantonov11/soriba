@@ -19,14 +19,14 @@ div.link.cartWrap
                 each item in product.features
                     li.feature= item
             span.price $#{product.price}
-
-            - var n = 0;
-                while n++ < 5
-                    if product.rating < n
-                        span.fa.fa-star
-                    else
-                        span.fa.fa-star.checked
-            a(href=product.link)
+            .rating
+                - var n = 0;
+                    while n++ < 5
+                        if product.rating < n
+                            span.fa.fa-star
+                        else
+                            span.fa.fa-star.checked
+            a.link(href=product.link)
                 img.checkOut(width='100px', height='20px', src="/img/checkout.png")
             if(product.rating === 5)
                 img#image-modal(src='/img/save.png', height='20px', max-width='100%')
