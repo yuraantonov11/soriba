@@ -43,14 +43,15 @@ block content
                     .col-sm-9.col-md-7
                         input.form-control(type='text', name='link', id='link', required)
                 .form-group.row
-                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='image') Product image
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='imgInp') Product image
                     .col-sm-9.col-md-7
                         .file-form-wrap
                             .file-upload
                                 label
-                                    input(id="image" type="file" name="product-image" onchange="getFileParam();" accept=".png, .jpg, .jpeg" required)
+                                    input(id="imgInp" type="file" name="product-image" accept=".png, .jpg, .jpeg" required)
                                     span Choose file
-                                div(id="preview1") &nbsp;
+                                div
+                                    img.preview-image
                         //input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
                 .form-group.row
                     each category in categories
