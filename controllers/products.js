@@ -24,10 +24,33 @@ exports.index = (req, res) => {
         });
 };
 
+/**
+ * GET /
+ * My Products page.
+ */
+exports.indexMyProducts = (req, res) => {
+    Product
+        .find({})
+        .exec((err, products) => {
+            if (err) return res.send(err);
+            // this will log all of the users with each of their posts
+            Category.find({})
+                .exec((err, categories) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    res.render('products', {
+                        title: 'All Products',
+                        products,
+                        categories
+                    });
+                });
+        });
+};
+
 
 /**
  * GET /
- * Products page.
+ * Products route.
  */
 exports.getAll = (req, res) => {
     Product
