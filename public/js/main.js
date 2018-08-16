@@ -24,7 +24,6 @@ $(document).ready(() => {
             })
             .catch(() => alert('error !'));
     };
-    console.log($.post);
 
     $('.change-user-role').on('change', function () {
         const conceptName = $(this).find(':selected').text().toLowerCase();
@@ -34,7 +33,6 @@ $(document).ready(() => {
                 if (!data) alert('error !');
             });
     });
-    console.log($.post);
 
 
     $('#product-review-modal').on('show.bs.modal', () => {
@@ -67,11 +65,9 @@ $(document).ready(() => {
     $('#imgInp').change(function () {
         readURL(this);
     });
-    console.log($.post);
     $('.delete-products').on('click', function () {
 
         const ids = $.map($('.editable-products .card.selected'), e => e.dataset.id);
-        console.log($.post);
         $.post({
             url: '/delete-products',
             data: { ids }
@@ -84,7 +80,6 @@ $(document).ready(() => {
             .fail(function() {
                 alert( "error" );
             });
-        console.log(ids);
     });
     $('.editable-products .card').on('click', function () {
         $(this).toggleClass('selected');
