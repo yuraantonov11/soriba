@@ -12,14 +12,14 @@ div.link.cartWrap
         //        a.dropdown-item(href='#') Something else here
         //        .dropdown-divider
         //        a.dropdown-item(href='#') Separated link
+        p.name.text-white.p-1= product.name
         .card-body
-            p.name= product.name
             p.title= product.title
             ul.features
                 each item in product.features
                     li.feature= item
             span.price $#{product.price}
-            .rating
+            span.rating
                 - var n = 0;
                     while n++ < 5
                         if product.rating < n
