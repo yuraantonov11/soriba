@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+    .pb-2.mt-2.mb-4.border-bottom
+        h3= title
+        .btn.btn-secondary.delete-products delete selected
+            span.selected-count (0)
+
+    .row.editable-products
+        each product in products
+            .col-md-4
+                include product

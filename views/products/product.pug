@@ -1,5 +1,5 @@
 div.link.cartWrap
-    .card.mb-3
+    .card.mb-3(data-id=product._id)
         if (product.choice)
             img.bestProduct(src='/img/best_choice-new.png', height='40px', width='150px')
         img.preview-image(src=product.image, max-width='100%')

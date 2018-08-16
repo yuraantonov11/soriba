@@ -148,6 +148,20 @@ textarea {
 .checked {
   color: limegreen;
 }
+.editable-products{
+  .card{
+    &.selected{
+      box-shadow: 5px 5px 5px #666;
+      &:before{
+        content: '\f00c'; /* http://fontawesome.io/3.2.1/icon/ok/ */
+        font-family: 'FontAwesome', serif;
+        right: 5px;
+        position: absolute;
+        color: limegreen;
+      }
+    }
+  }
+}
 .card{
   &.mb-3{
     margin-bottom: 3rem !important;

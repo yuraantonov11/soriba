@@ -30,7 +30,9 @@ exports.index = (req, res) => {
  */
 exports.indexMyProducts = (req, res) => {
     Product
-        .find({})
+        .find({
+            creator: req.user._id
+        })
         .exec((err, products) => {
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
@@ -38,8 +40,8 @@ exports.indexMyProducts = (req, res) => {
                 .exec((err, categories) => {
                     if (err) console.log(err);
                     // this will log all of the users with each of their posts
-                    res.render('products', {
-                        title: 'All Products',
+                    res.render('products/my-products', {
+                        title: 'My Products',
                         products,
                         categories
                     });
@@ -72,6 +74,20 @@ exports.product = (req, res) => {
         // products: products[0]
     });
 };
+/**
+ * POST /
+ * Delete Product.
+ */
+exports.delete = (req, res) => {
+    const { body } = req;
+    Product.deleteMany({
+        _id: { $in: body.ids }
+    }, (err) => {
+        if (err) return res.send(err);
+        // this will log all of the users with each of their posts
+        res.sendStatus(200);
+    });
+};
 
 
 /**
@@ -80,8 +96,6 @@ exports.product = (req, res) => {
  */
 exports.add = (req, res) => {
     const { body, user } = req;
-    console.log(body);
-    // return res.send(body)
     Product.create({
         name: body.name,
         title: body.title,
@@ -93,14 +107,13 @@ exports.add = (req, res) => {
         image: req.file.path,
         categories: body.categories,
         creator: user._id,
-    }, (err, product) => {
+    }, (err) => {
         if (err) {
-            console.error(err);
             req.flash('errors', err);
             return res.redirect('/login');
         }
         // saved!
-        // return res.redirect(`/products-page/${product._id}`);
+        req.flash('success', { msg: 'Products has been added.' });
         return res.redirect('/products-page/');
     });
     // res.render('products/product', {

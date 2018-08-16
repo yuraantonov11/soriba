@@ -162,7 +162,9 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 /**
  * Products routes.
  */
+app.get('/my-products-page', productsController.indexMyProducts);
 app.get('/products-page', productsController.index);
+app.post('/delete-products', productsController.delete);
 app.get('/products', productsController.getAll);
 app.post('/products', upload.single('product-image'), productsController.add);
 app.get('/products/add', productsController.addPage);
