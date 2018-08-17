@@ -66,7 +66,6 @@ $(document).ready(() => {
         readURL(this);
     });
     $('.delete-products').on('click', function () {
-
         const ids = $.map($('.editable-products .card.selected'), e => e.dataset.id);
         $.post({
             url: '/delete-products',
