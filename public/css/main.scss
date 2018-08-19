@@ -307,6 +307,13 @@ input:checked + .slider:before {
   position: relative;
   right: -125px;
 }
+.preview-image {
+  height: 100px;
+}
+.product-actions{
+  position: absolute;
+  //right: 0;
+}
 
 @media (max-width: 991px) {
   .listWrap{

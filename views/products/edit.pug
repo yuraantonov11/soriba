@@ -1,66 +1,61 @@
 extends ../layout
-
 block content
     .pb-2.mt-2.mb-4.border-bottom
         h3= title
     .row
         .col-md-12
-            form(method='POST', action='/products', enctype='multipart/form-data')
+            form(method='POST', action='/product-edit/' + productData._id, enctype='multipart/form-data')
                 input(type='hidden', name='_csrf', value=_csrf)
                 .form-group.row
-                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product name
+                    label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Product name
                     .col-sm-9.col-md-7
-                        input.form-control(type='text', name='name', id='name', required)
+                        input.form-control(type='text', name='name', id='name', value= productData.name, required)
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='title') Product title
                     .col-sm-9.col-md-7
-                        input.form-control(type='text', name='title', id='title', required)
+                        input.form-control(type='text', name='title', id='title', value= productData.title, required)
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='choice') Sansavvy Choice
-                    input.form-control.sansChoice(type='checkbox', name='choice', id='choice')
+                    input.form-control.sansChoice(type='checkbox', name='choice', id='choice', checked= productData.choice)
                 .listWrap
-                    - var n = 1;
-                    while n < 7
+                    - var n = 0;
+                    while n < productData.features.length
                         .form-group.row
-                            label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right Product feature: #{n++}
+                            label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right Product feature: #{n + 1}
                             .col-sm-9.col-md-9
-                                input.form-control(type='text', name='features', required)
+                                input.form-control(type='text', name='features', value= productData.features[n++], required)
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-sm-9.col-md-7
-                        input.form-control(type='number', min=0 name='price', id='price', required)
+                        input.form-control(type='number', min=0 name='price', id='price', value= productData.price, required)
                 label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='rating') Rating
                 select(name='rating' id='rating')
-                    option 0
-                    option 1
-                    option 2
-                    option 3
-                    option 4
-                    option 5
+                    - var m = 0;
+                    while m < 6
+                        option(selected= m === productData.rating, value =m)= m++
                 span.fa.fa-star
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='link') Product link
                     .col-sm-9.col-md-7
-                        input.form-control(type='text', name='link', id='link', required)
+                        input.form-control(type='text', name='link', id='link', value= productData.link, required)
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='imgInp') Product image
                     .col-sm-9.col-md-7
                         .file-form-wrap
                             .file-upload
                                 label
-                                    input(id="imgInp" type="file" name="product-image" accept=".png, .jpg, .jpeg" required)
+                                    input(id="imgInp", type="file", name="product-image", accept=".png, .jpg, .jpeg")
                                     span Choose file
                                 div
-                                    img.preview-image
-                        //input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
+                                    img.preview-image(src= productData.image)
                 .form-group.row
                     each category in categories
-                        label.col-sm-2.col-md-2.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
-                            input(type='checkbox', name='categories' value=category._id id=category._id)
+                        label.col-sm-2.col-md-2.col-form-label.font-weight-bold.text-right(for= category._id)= category.name
+                            input(type='checkbox', name='categories', value= category._id, id= category._id, checked= productData.categories.includes(category._id) )
                 .form-group.offset-lg-4.col-md-4.pl-2.row
                     button.btn.btn-success(type='submit')
-                        i.fas.fa-plus.fa-sm
-                        | Create
+                        i.fas.fa-save.fa-sm
+                        | Save
                     button.btn.btn-secondary.ml-auto(type='button', data-toggle='modal', data-target='#product-review-modal')
                         i.fas.fa-eye.fa-sm
                         | Preview
@@ -73,7 +68,8 @@ block content
                         button.close(type='button', data-dismiss='modal', aria-label='Close')
                             span(aria-hidden='true') ×
                     .modal-body
-                        - var product = {features: [], choice: true}
+                        - var product = productData
+                        - product.features = []
                         include product
                     .modal-footer
                         button.btn.btn-secondary(type='button', data-dismiss='modal') Close

@@ -47,19 +47,20 @@ $(document).ready(() => {
                 modal.find(`.${element.name}`).append(`<li>${element.value}</li>`);
             } else if (element.name === 'link') {
                 modal.find(`.${element.name}`).attr('href', element.value);
+            } else if (element.name === 'price') {
+                modal.find(`.${element.name}`).text(`$ ${element.value}`);
             } else if (element.name === 'rating') {
                 const stars = modal.find('.rating>span.fa-star');
                 stars.each(function (index) {
                     $(this).toggleClass('checked', index < element.value);
                 });
             } else {
-                modal.find(`.${element.name}:empty`).text(element.value);
+                modal.find(`.${element.name}`).text(element.value);
             }
         });
     });
     $('#product-review-modal').on('hidden.bs.modal', () => {
         const modal = $('#product-review-modal');
-        console.log(modal.find('.features'));
         modal.find('.features').empty();
     });
     $('#imgInp').change(function () {
@@ -67,6 +68,7 @@ $(document).ready(() => {
     });
     $('.delete-products').on('click', function () {
         const ids = $.map($('.editable-products .card.selected'), e => e.dataset.id);
+        if (!ids.length) return;
         $.post({
             url: '/delete-products',
             data: { ids }
@@ -82,6 +84,8 @@ $(document).ready(() => {
     });
     $('.editable-products .card').on('click', function () {
         $(this).toggleClass('selected');
+        const ids = $.map($('.editable-products .card.selected'), e => e.dataset.id);
+        $('.delete-products').toggleClass('disabled', !ids.length);
         $('.selected-count')
             .text(`(${$('.editable-products .card.selected').length})`);
     });

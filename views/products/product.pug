@@ -3,22 +3,19 @@ div.link.cartWrap
         if (product.choice)
             img.bestProduct(src='/img/best_choice-new.png', height='40px', width='150px')
         img.preview-image(src=product.image, max-width='100%')
-        //.btn-group
-        //    button.btn.btn-danger.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-        //        | Action
-        //    .dropdown-menu
-        //        a.dropdown-item(href='#') Action
-        //        a.dropdown-item(href='#') Another action
-        //        a.dropdown-item(href='#') Something else here
-        //        .dropdown-divider
-        //        a.dropdown-item(href='#') Separated link
+        .btn-group.product-actions
+            button.btn.btn-warning.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                | Action
+            .dropdown-menu
+                a.dropdown-item(href='/products/' + product._id) Edit
+                a.dropdown-item(href='') Delete
         p.name.text-white.p-1= product.name
         .card-body
             p.title= product.title
             ul.features
                 each item in product.features
                     li.feature= item
-            span.price $#{product.price}
+            span.price= '$' +product.price
             span.rating
                 - var n = 0;
                     while n++ < 5

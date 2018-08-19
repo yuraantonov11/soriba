@@ -170,10 +170,12 @@ app.get('/demo-page', productsController.indexMyProducts);
 app.get('/my-products-page', productsController.indexMyProducts);
 app.get('/products-page', productsController.index);
 app.post('/delete-products', productsController.delete);
-app.get('/products', productsController.getAll);
-app.post('/products', upload.single('product-image'), productsController.add);
 app.get('/products/add', productsController.addPage);
 app.get('/products/product', productsController.product);
+app.get('/products/:productId', productsController.editProductPage);
+app.post('/product-edit/:productId', upload.single('product-image'), productsController.editProduct);
+app.get('/products', productsController.getAll);
+app.post('/products', upload.single('product-image'), productsController.add);
 
 
 /**
