@@ -3,6 +3,28 @@ const Category = require('../models/Category');
 
 /**
  * GET /
+ * Demo page.
+ */
+exports.indexDemoPage = (req, res) => {
+    Product
+        .find({})
+        .exec((err, products) => {
+            if (err) return res.send(err);
+            // this will log all of the users with each of their posts
+            Category.find({})
+                .exec((err, categories) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    res.render('products', {
+                        title: 'Demo',
+                        products,
+                        categories
+                    });
+                });
+        });
+};
+/**
+ * GET /
  * Products page.
  */
 exports.index = (req, res) => {
@@ -18,7 +40,9 @@ exports.index = (req, res) => {
                     res.render('products', {
                         title: 'All Products',
                         products,
-                        categories
+                        categories,
+                        importBtn: true,
+                        controls: true
                     });
                 });
         });
@@ -115,7 +139,8 @@ exports.indexMyProducts = (req, res) => {
                     res.render('products/my-products', {
                         title: 'My Products',
                         products,
-                        categories
+                        categories,
+                        controls: true
                     });
                 });
         });
@@ -155,7 +180,8 @@ exports.delete = (req, res) => {
     Product.deleteMany({
         _id: { $in: body.ids }
     })
-        .exec((err, response) => {
+        .exec((err, data) => {
+            console.log(data);
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
             res.sendStatus(200);

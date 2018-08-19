@@ -162,7 +162,7 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 /**
  * Demo routes.
  */
-app.get('/demo-page', productsController.indexMyProducts);
+app.get('/demo-page', productsController.indexDemoPage);
 
 /**
  * Products routes.

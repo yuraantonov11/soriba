@@ -3,14 +3,15 @@ div.link.cartWrap
         if (product.choice)
             img.bestProduct(src='/img/best_choice-new.png', height='40px', width='150px')
         img.preview-image(src=product.image, max-width='100%')
-        .btn-group.product-actions
-            button.btn.btn-warning.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                | Action
-            .dropdown-menu
-                a.dropdown-item(href='/products/' + product._id) Edit
-                a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
-                if (importBtn)
-                    a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Import
+        if(controls)
+            .btn-group.product-actions
+                button.btn.btn-warning.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                    | Action
+                .dropdown-menu
+                    a.dropdown-item(href='/products/' + product._id) Edit
+                    a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
+                    if (importBtn)
+                        a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Import
         p.name.text-white.p-1= product.name
         .card-body
             p.title= product.title
