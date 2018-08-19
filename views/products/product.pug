@@ -8,7 +8,9 @@ div.link.cartWrap
                 | Action
             .dropdown-menu
                 a.dropdown-item(href='/products/' + product._id) Edit
-                a.dropdown-item(href='') Delete
+                a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
+                if (importBtn)
+                    a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Import
         p.name.text-white.p-1= product.name
         .card-body
             p.title= product.title

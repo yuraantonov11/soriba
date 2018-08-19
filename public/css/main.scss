@@ -314,6 +314,11 @@ input:checked + .slider:before {
   position: absolute;
   //right: 0;
 }
+.dropdown-menu{
+  a.dropdown-item{
+    cursor: pointer;
+  }
+}
 
 @media (max-width: 991px) {
   .listWrap{

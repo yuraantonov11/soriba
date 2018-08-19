@@ -24,6 +24,20 @@ $(document).ready(() => {
             })
             .catch(() => alert('error !'));
     };
+    window.deleteProduct = function (id) {
+        $.post({
+            url: '/delete-products',
+            data: {
+                ids: [id]
+            }
+        })
+            .done(() => {
+                $(`div[data-id=${id}]`).parent().parent().remove();
+            })
+            .fail(() => {
+                alert('error');
+            });
+    };
 
     $('.change-user-role').on('change', function () {
         const conceptName = $(this).find(':selected').text().toLowerCase();
@@ -66,7 +80,8 @@ $(document).ready(() => {
     $('#imgInp').change(function () {
         readURL(this);
     });
-    $('.delete-products').on('click', function () {
+    $('.delete-products').on('click', function (e) {
+        e.preventDefault();
         const ids = $.map($('.editable-products .card.selected'), e => e.dataset.id);
         if (!ids.length) return;
         $.post({
