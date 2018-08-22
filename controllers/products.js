@@ -40,9 +40,9 @@ exports.index = (req, res) => {
                     res.render('products', {
                         title: 'All Products',
                         products,
-                        categories,
+                        categories: JSON.stringify(categories),
                         importBtn: true,
-                        controls: true
+                        controls: true,
                     });
                 });
         });
@@ -66,8 +66,6 @@ exports.editProductPage = (req, res) => {
                     // this will log all of the users with each of their posts
                     const categories = c.map(e => ({ name: e.name, _id: e._id.toString() }));
                     product.categories = product.categories.map(c => c._id);
-                    console.log(product);
-                    console.log();
                     res.render('products/edit', {
                         title: 'Edit Product',
                         categories: JSON.parse(JSON.stringify(categories)),
@@ -91,7 +89,6 @@ exports.editProduct = (req, res) => {
             req.flash('errors', 'You do not have permission to edit this product');
             return res.redirect(`/products/${productId}`);
         }
-        console.log(body);
         const data = {
             name: body.name,
             title: body.title,
@@ -112,7 +109,6 @@ exports.editProduct = (req, res) => {
                 req.flash('errors', err);
                 return res.redirect(`/products/${productId}`);
             }
-            console.log(result);
             // saved!
             req.flash('success', { msg: 'Product has been saved.' });
             return res.redirect('/my-products-page/');
@@ -152,10 +148,24 @@ exports.indexMyProducts = (req, res) => {
  * Products route.
  */
 exports.getAll = (req, res) => {
+    const queries = {};
+    for (const query in req.query) {
+        console.log(req.query[query]);
+        if (req.query[query]) queries[query] = req.query[query];
+    }
     Product
-        .find({})
+        .find(queries)
+        .select({
+            name: 1,
+            title: 1,
+            rating: 1,
+            price: 1,
+            link: 1,
+            createdAt: 1,
+        })
         .exec((err, products) => {
             if (err) return res.send(err);
+            console.log(products);
             // this will log all of the users with each of their posts
             res.send(products);
         });
@@ -181,7 +191,6 @@ exports.delete = (req, res) => {
         _id: { $in: body.ids }
     })
         .exec((err, data) => {
-            console.log(data);
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
             res.sendStatus(200);
@@ -195,7 +204,6 @@ exports.delete = (req, res) => {
  */
 exports.add = (req, res) => {
     const { body, user } = req;
-    console.log(body);
     Product.create({
         name: body.name,
         title: body.title,

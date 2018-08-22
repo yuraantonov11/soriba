@@ -1,10 +1,9 @@
 extends ../layout
-
 block content
+    script.
+        var categories = !{categories};
     .pb-2.mt-2.mb-4.border-bottom
         h3= title
 
     .row
-        each product in products
-            .col-md-4
-                include product
+        #jsGrid

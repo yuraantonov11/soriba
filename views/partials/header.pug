@@ -10,15 +10,15 @@
             ul.nav.navbar-nav
                 li.nav-item(class=(title === 'Demo') ? 'active' : undefined)
                     a.nav-link(href='/demo-page') Demo
-                li.nav-item(class=(title === 'My Products') ? 'active' : undefined)
-                    a.nav-link(href='/my-products-page') My Products
-                li.nav-item(class=(title === 'All Products') ? 'active' : undefined)
-                    a.nav-link(href='/products-page') All Products
-                li.nav-item(class=(title === 'Add Product') ? 'active' : undefined)
-                    a.nav-link(href='/products/add') Add Product
-                li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
-                    a.nav-link(href='/categories-page') Categories
                 if user && user.role === 'admin'
+                    li.nav-item(class=(title === 'My Products') ? 'active' : undefined)
+                        a.nav-link(href='/my-products-page') My Products
+                    li.nav-item(class=(title === 'All Products') ? 'active' : undefined)
+                        a.nav-link(href='/products-page') All Products
+                    li.nav-item(class=(title === 'Add Product') ? 'active' : undefined)
+                        a.nav-link(href='/products/add') Add Product
+                    li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
+                        a.nav-link(href='/categories-page') Categories
                     li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
                         a.nav-link(href='/users-page') Users
                     li.nav-item(class=(title === 'Create user') ? 'active' : undefined)

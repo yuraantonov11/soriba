@@ -319,6 +319,9 @@ input:checked + .slider:before {
     cursor: pointer;
   }
 }
+.jsgrid-grid-body{
+  height: 100% !important;
+}
 
 @media (max-width: 991px) {
   .listWrap{

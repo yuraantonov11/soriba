@@ -80,7 +80,7 @@ $(document).ready(() => {
     $('#imgInp').change(function () {
         readURL(this);
     });
-    $('.delete-products').on('click', function (e) {
+    $('.delete-products').on('click', (e) => {
         e.preventDefault();
         const ids = $.map($('.editable-products .card.selected'), e => e.dataset.id);
         if (!ids.length) return;
@@ -88,13 +88,13 @@ $(document).ready(() => {
             url: '/delete-products',
             data: { ids }
         })
-            .done(function() {
+            .done(() => {
                 $('.editable-products .card.selected').each(function () {
                     $(this).parent().parent().remove();
                 });
             })
-            .fail(function() {
-                alert( "error" );
+            .fail(() => {
+                alert('error');
             });
     });
     $('.editable-products .card').on('click', function () {
@@ -103,5 +103,79 @@ $(document).ready(() => {
         $('.delete-products').toggleClass('disabled', !ids.length);
         $('.selected-count')
             .text(`(${$('.editable-products .card.selected').length})`);
+    });
+
+
+    $('#jsGrid').jsGrid({
+        height: '70%',
+        width: '100%',
+        filtering: true,
+        inserting: false,
+        editing: true,
+        sorting: true,
+        paging: true,
+        autoload: true,
+        pageSize: 10,
+        pageButtonCount: 5,
+        deleteConfirm: 'Do you really want to delete client?',
+        controller: {
+            loadData(filter) {
+                return $.ajax({
+                    type: 'GET',
+                    url: '/products',
+                    data: filter
+                });
+            },
+            insertItem(item) {
+                return $.ajax({
+                    type: 'POST',
+                    url: '/clients',
+                    data: item
+                });
+            },
+            updateItem(item) {
+                return $.ajax({
+                    type: 'PUT',
+                    url: '/clients',
+                    data: item
+                });
+            },
+            deleteItem(item) {
+                return $.ajax({
+                    type: 'DELETE',
+                    url: '/clients',
+                    data: item
+                });
+            }
+        },
+        fields: [
+            {
+                name: 'name', title: 'Name', type: 'text', width: 100
+            },
+            {
+                name: 'price', title: 'Price', type: 'number', width: 50
+            },
+            {
+                name: 'rating', title: 'Rating', type: 'number', width: 50
+            },
+            {
+                name: 'title', title: 'Title', type: 'text', width: 100
+            },
+            {
+                name: 'link',
+                title: 'Link',
+                type: 'text',
+                width: 100,
+                itemTemplate(value, item) {
+                    const $link = $('<a>').attr('href', value).text('Go To Item');
+                    return $('<div>').append($link);
+                }
+            },
+            // {
+            //     name: 'category', type: 'select', items: categories, valueField: '_id', textField: 'name'
+            // },
+            { type: 'control', width: 50 }
+
+        ]
     });
 });
