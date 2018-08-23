@@ -17,40 +17,15 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const sass = require('node-sass-middleware');
-const multer = require('multer');
-const crypto = require('crypto');
-const mime = require('mime');
+const subdomain = require('express-subdomain');
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads');
-    },
-    filename(req, file, cb) {
-        crypto.pseudoRandomBytes(16, (err, raw) => {
-            cb(null, `${raw.toString('hex') + Date.now()}.${mime.getExtension(file.mimetype)}`);
-        });
-    }
-});
-const upload = multer({ storage });
+const adminRouter = require('./routes/adminApp');
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
  */
 require('dotenv').config();
 
-/**
- * Controllers (route handlers).
- */
-const homeController = require('./controllers/home');
-const userController = require('./controllers/user');
-const productsController = require('./controllers/products');
-const contactController = require('./controllers/contact');
-const categoriesController = require('./controllers/categories');
-
-/**
- * API keys and Passport configuration.
- */
-const passportConfig = require('./config/passport');
 
 /**
  * Create Express server.
@@ -127,6 +102,7 @@ app.use((req, res, next) => {
 });
 
 app.use('*/uploads', express.static('uploads'));
+app.use('*/uploads', express.static('uploads'));
 
 app.use('/', express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/popper.js/dist/umd'), { maxAge: 31557600000 }));
@@ -134,73 +110,14 @@ app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/bootstrap/d
 app.use('/js/lib', express.static(path.join(__dirname, 'node_modules/jquery/dist'), { maxAge: 31557600000 }));
 app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawesome/fontawesome-free/webfonts'), { maxAge: 31557600000 }));
 
-/**
- * Primary app routes.
- */
-app.get('/', homeController.index);
-app.get('/login', userController.getLogin);
-app.post('/login', userController.postLogin);
-app.get('/logout', userController.logout);
-app.get('/forgot', userController.getForgot);
-app.post('/forgot', userController.postForgot);
-app.get('/reset/:token', userController.getReset);
-app.post('/reset/:token', userController.postReset);
-app.get('/signup', userController.getSignup);
-app.post('/signup', userController.postSignup);
-app.get('/contact', contactController.getContact);
-app.post('/contact', contactController.postContact);
-app.get('/account', passportConfig.isAuthenticated, userController.getAccount);
-app.post('/account/profile', passportConfig.isAuthenticated, userController.postUpdateProfile);
-app.post('/account/password', passportConfig.isAuthenticated, userController.postUpdatePassword);
-app.post('/account/delete', passportConfig.isAuthenticated, userController.postDeleteAccount);
-app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
+const router = express.Router();
 
-/**
- * API examples routes.
- */
+router.get('/', (req, res) => res.send('Home Page'));
+//adminportal.sansavvy.com
+app.use(adminRouter);
 
-/**
- * Demo routes.
- */
-app.get('/demo-page', productsController.indexDemoPage);
-
-/**
- * Products routes.
- */
-app.get('/my-products-page', productsController.indexMyProducts);
-app.get('/products-page', productsController.index);
-app.post('/delete-products', productsController.delete);
-app.get('/products/add', productsController.addPage);
-app.get('/products/product', productsController.product);
-app.get('/products/:productId', productsController.editProductPage);
-app.post('/product-edit/:productId', upload.single('product-image'), productsController.editProduct);
-app.get('/products', productsController.getAll);
-app.post('/products', upload.single('product-image'), productsController.add);
-
-
-/**
- * Categories routes.
- */
-app.get('/categories-page', categoriesController.index);
-app.get('/categories', categoriesController.getAllCategories);
-app.post('/categories', categoriesController.add);
-app.delete('/categories/:categoryId', categoriesController.removeCategory);
-
-/**
- * Users routes.
- */
-app.get('/users-page', userController.index);
-app.post('/users/:userId', userController.updateRole);
-app.get('/users/:userId/products', userController.getUserProducts);
-// app.post('/users', categoriesController.add);
-// app.delete('/users/:userId', categoriesController.removeCategory);
-/**
- * OAuth authentication routes. (Sign in)
- */
-// app.get('/auth/google', passport.authenticate('google', { scope: 'profile email' }));
-// app.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-//   res.redirect(req.session.returnTo || '/');
-// });
+app.use(router);
+app.use(subdomain('adminportal', adminRouter));
 
 
 /**

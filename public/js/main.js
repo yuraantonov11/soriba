@@ -106,76 +106,150 @@ $(document).ready(() => {
     });
 
 
-    $('#jsGrid').jsGrid({
-        height: '70%',
-        width: '100%',
-        filtering: true,
-        inserting: false,
-        editing: true,
-        sorting: true,
-        paging: true,
-        autoload: true,
-        pageSize: 10,
-        pageButtonCount: 5,
-        deleteConfirm: 'Do you really want to delete client?',
-        controller: {
-            loadData(filter) {
-                return $.ajax({
-                    type: 'GET',
-                    url: '/products',
-                    data: filter
+    function initjsGrid() {
+        const MultiselectField = function (config) {
+            jsGrid.Field.call(this, config);
+        };
+
+        MultiselectField.prototype = new jsGrid.Field({
+
+            items: [],
+            textField: '',
+            valueField: '',
+
+            _createSelect(selected) {
+                const textField = this.textField;
+                const valueField = this.valueField;
+                const $result = $('<select>').attr('multiple', '');
+
+                $.each(this.items, (_, item) => {
+                    const text = item[textField];
+                    const val = item[valueField];
+                    const $opt = $('<option>').val(val).text(text);
+                    if ($.inArray(val, selected) > -1) {
+                        $opt.attr('selected', 'selected');
+                    }
+
+                    $result.append($opt);
                 });
+
+                return $result;
             },
-            insertItem(item) {
-                return $.ajax({
-                    type: 'POST',
-                    url: '/clients',
-                    data: item
-                });
+
+            filterTemplate() {
+                const filterControl = this._filterControl = this._createSelect();
+
+                // setTimeout(() => {
+                //     filterControl.select({
+                //         allowClear: true
+                //     });
+                // });
+
+                return filterControl;
             },
-            updateItem(item) {
-                return $.ajax({
-                    type: 'PUT',
-                    url: '/clients',
-                    data: item
-                });
-            },
-            deleteItem(item) {
-                return $.ajax({
-                    type: 'DELETE',
-                    url: '/clients',
-                    data: item
+
+            filterValue() {
+                console.log(this._filterControl.find('option:selected'));
+                return this._filterControl.find('option:selected').map(function () {
+                    return this.selected ? $(this).val() : null;
                 });
             }
-        },
-        fields: [
-            {
-                name: 'name', title: 'Name', type: 'text', width: 100
-            },
-            {
-                name: 'price', title: 'Price', type: 'number', width: 50
-            },
-            {
-                name: 'rating', title: 'Rating', type: 'number', width: 50
-            },
-            {
-                name: 'title', title: 'Title', type: 'text', width: 100
-            },
-            {
-                name: 'link',
-                title: 'Link',
-                type: 'text',
-                width: 100,
-                itemTemplate(value, item) {
-                    const $link = $('<a>').attr('href', value).text('Go To Item');
-                    return $('<div>').append($link);
+        });
+        jsGrid.fields.multiselect = MultiselectField;
+
+        $('#jsGrid').jsGrid({
+            height: '70%',
+            width: '100%',
+            filtering: true,
+            inserting: false,
+            editing: true,
+            sorting: true,
+            paging: true,
+            autoload: true,
+            pageSize: 10,
+            pageButtonCount: 5,
+            deleteConfirm: 'Do you really want to delete client?',
+            controller: {
+                loadData(filter) {
+                    return $.ajax({
+                        type: 'GET',
+                        url: '/products',
+                        data: filter
+                    });
+                },
+                insertItem(item) {
+                    return $.ajax({
+                        type: 'POST',
+                        url: '/clients',
+                        data: item
+                    });
+                },
+                updateItem(item) {
+                    return $.ajax({
+                        type: 'PUT',
+                        url: '/clients',
+                        data: item
+                    });
+                },
+                deleteItem(item) {
+                    return $.ajax({
+                        type: 'DELETE',
+                        url: '/clients',
+                        data: item
+                    });
                 }
             },
-            // {
-            //     name: 'category', type: 'select', items: categories, valueField: '_id', textField: 'name'
-            // },
-            { type: 'control', width: 50 }
+            fields: [
+                {
+                    name: 'name', title: 'Name', type: 'text', width: 100
+                },
+                {
+                    name: 'price',
+                    title: 'Price',
+                    type: 'number',
+                    align: 'center',
+                    width: 50,
+                    itemTemplate(value) {
+                        return `$ ${value}`;
+                    }
+                },
+                {
+                    name: 'rating', align: 'center', title: 'Rating', type: 'number', width: 50
+                },
+                {
+                    name: 'title', title: 'Title', type: 'text', width: 100
+                },
+                {
+                    name: 'createdAt', title: 'Date',
+                },
+                {
+                    name: 'link',
+                    title: 'Link',
+                    type: 'text',
+                    width: 100,
+                    itemTemplate(value, item) {
+                        const $link = $('<a>').attr('href', value).text('Go To Item');
+                        return $('<div>').append($link);
+                    }
+                },
+                // {
+                //     name: 'categories',
+                //     title: 'Categories',
+                //     type: 'multiselect',
+                //     items: categories,
+                //     valueField: '_id',
+                //     textField: 'name',
+                //     itemTemplate(value) {
+                //         return 'return'
+                //         console.log(value);
+                //         console.log(categories.find(f => f._id == value.toString()).name);
+                //         return categories.find(f => f._id == value.toString()).name;
+                //     }
+                // },
+                { type: 'control', width: 50 }
 
-        ]
-    });
+            ]
+        });
+    }
+    initjsGrid();
 });
