@@ -14,8 +14,8 @@ exports.index = (req, res) => {
                 .exec((err, categories) => {
                     if (err) console.log(err);
                     // this will log all of the users with each of their posts
-                    res.render('home', {
-                        title: 'Demo',
+                    res.render('products', {
+                        title: 'Publishing',
                         products,
                         categories
                     });

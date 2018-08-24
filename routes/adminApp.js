@@ -66,11 +66,6 @@ router.get('/account/unlink/:provider', passportConfig.isAuthenticated, userCont
  */
 
 /**
- * Demo routes.
- */
-router.get('/demo-page', productsController.indexDemoPage);
-
-/**
  * Products routes.
  */
 router.get('/my-products-page', productsController.indexMyProducts);

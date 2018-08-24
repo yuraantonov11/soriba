@@ -7,6 +7,8 @@ block content
             span.selected-count (0)
 
     .row.editable-products
+        unless products.length > 0
+            p You have no added products yet
         each product in products
             .col-md-4
                 include product

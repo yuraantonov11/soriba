@@ -1,28 +1,5 @@
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-
-/**
- * GET /
- * Demo page.
- */
-exports.indexDemoPage = (req, res) => {
-    Product
-        .find({})
-        .exec((err, products) => {
-            if (err) return res.send(err);
-            // this will log all of the users with each of their posts
-            Category.find({})
-                .exec((err, categories) => {
-                    if (err) console.log(err);
-                    // this will log all of the users with each of their posts
-                    res.render('products', {
-                        title: 'Demo',
-                        products,
-                        categories
-                    });
-                });
-        });
-};
 /**
  * GET /
  * Products page.
@@ -127,6 +104,7 @@ exports.indexMyProducts = (req, res) => {
         })
         .exec((err, products) => {
             if (err) return res.send(err);
+            console.log(products);
             // this will log all of the users with each of their posts
             Category.find({})
                 .exec((err, categories) => {
