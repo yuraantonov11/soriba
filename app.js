@@ -17,7 +17,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const sass = require('node-sass-middleware');
-const subdomain = require('express-subdomain');
+const vhost = require('vhost');
 
 const adminRouter = require('./routes/adminApp');
 
@@ -52,8 +52,8 @@ mongoose.connection.on('error', (err) => {
 /**
  * Express configuration.
  */
-app.set('host', process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0');
-app.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 80);
+app.set('host', process.env.HOST || '127.0.0.1');
+app.set('port', process.env.PORT || 80);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(compression());
@@ -118,15 +118,18 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 
 const router = express.Router();
 
-router.get('/', (req, res) => res.send('Home Page'));
-app.use(router);
+// app.use(router);
 // adminportal.sansavvy.com
 
 // app.use('/', function(req, res) {
 //     var url = req.protocol + '://' + req.get('host') + req.originalUrl;
 //     res.send(url);
 // });
-app.use(subdomain('adminportal', adminRouter));
+// app.use(subdomain('adminportal', adminRouter));
+app.use(vhost(process.env.DOMAIN, router));
+app.use(vhost(`${process.env.SUBDOMAIN}.${process.env.DOMAIN}`, adminRouter));
+router.get('/', (req, res) => res.send('Home Page'));
+
 
 
 /**
@@ -141,7 +144,7 @@ if (process.env.NODE_ENV === 'development') {
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-    console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
+    console.log('%s App is running at %s:%d in %s mode', chalk.green('✓'), app.get('host'), app.get('port'), app.get('env'));
     console.log('  Press CTRL-C to stop\n');
 });
 
