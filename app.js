@@ -36,7 +36,13 @@ const app = express();
  * Connect to MongoDB.
  */
 console.log(process.env.MONGODB_URI);
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
+const options = {
+    useNewUrlParser: true,
+    connectTimeoutMS: 30000,
+    keepAlive: true,
+    keepAliveInitialDelay: 500000
+};
+mongoose.connect(process.env.MONGODB_URI, options);
 mongoose.connection.on('error', (err) => {
     console.error(err);
     console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
@@ -113,10 +119,13 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 const router = express.Router();
 
 router.get('/', (req, res) => res.send('Home Page'));
-//adminportal.sansavvy.com
-app.use(adminRouter);
-
 app.use(router);
+// adminportal.sansavvy.com
+
+// app.use('/', function(req, res) {
+//     var url = req.protocol + '://' + req.get('host') + req.originalUrl;
+//     res.send(url);
+// });
 app.use(subdomain('adminportal', adminRouter));
 
 

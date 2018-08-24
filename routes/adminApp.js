@@ -33,6 +33,12 @@ const categoriesController = require('../controllers/categories');
 
 
 router.get('*/uploads', express.static('uploads'));
+// router.use((req, res, next) => {
+//     if (!req.user && req.path !== '/login') {
+//         return res.redirect('/login');
+//     }
+//     next();
+// });
 
 /**
  * Primary app routes.
