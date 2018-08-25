@@ -74,6 +74,8 @@ router.post('/delete-products', productsController.delete);
 router.get('/products/add', productsController.addPage);
 router.get('/products/product', productsController.product);
 router.get('/products/:productId', productsController.editProductPage);
+router.get('/products/:productId/publish', productsController.publishProduct);
+router.get('/products/:productId/unpublish', productsController.unpublishProduct);
 router.post('/product-edit/:productId', upload.single('product-image'), productsController.editProduct);
 router.get('/products', productsController.getAll);
 router.post('/products', upload.single('product-image'), productsController.add);

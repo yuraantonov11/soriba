@@ -53,6 +53,41 @@ exports.editProductPage = (req, res) => {
 };
 
 /**
+ * GET /
+ * Unpublish Product.
+ */
+exports.unpublishProduct = (req, res) => {
+    const { productId } = req.params;
+    Product.update({ _id: productId }, { $set: { published: false } }, (err) => {
+        if (err) {
+            console.error(err);
+            req.flash('errors', 'Can not unpublish product.');
+        } else {
+            req.flash('success', { msg: 'Product has been unpublished.' });
+        }
+
+        res.redirect('/#unpublished');
+    });
+};
+
+/**
+ * GET /
+ * Publish Product.
+ */
+exports.publishProduct = (req, res) => {
+    const { productId } = req.params;
+    Product.update({ _id: productId }, { $set: { published: true } }, (err) => {
+        if (err) {
+            console.error(err);
+            req.flash('errors', 'Can not publish product.');
+        } else {
+            req.flash('success', { msg: 'Product has been published.' });
+        }
+        res.redirect('/#published');
+    });
+};
+
+/**
  * POST /
  * Save Product method.
  */
@@ -104,7 +139,6 @@ exports.indexMyProducts = (req, res) => {
         })
         .exec((err, products) => {
             if (err) return res.send(err);
-            console.log(products);
             // this will log all of the users with each of their posts
             Category.find({})
                 .exec((err, categories) => {
@@ -128,7 +162,6 @@ exports.indexMyProducts = (req, res) => {
 exports.getAll = (req, res) => {
     const queries = {};
     for (const query in req.query) {
-        console.log(req.query[query]);
         if (req.query[query]) queries[query] = req.query[query];
     }
     Product
@@ -143,7 +176,6 @@ exports.getAll = (req, res) => {
         })
         .exec((err, products) => {
             if (err) return res.send(err);
-            console.log(products);
             // this will log all of the users with each of their posts
             res.send(products);
         });

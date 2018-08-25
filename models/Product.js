@@ -23,6 +23,10 @@ const productSchema = new Schema({
     },
     link: String,
     image: String,
+    published: {
+        type: Schema.Types.Boolean,
+        default: false
+    },
     categories: [{
         type: Schema.Types.ObjectId,
         ref: 'Category'

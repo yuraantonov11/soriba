@@ -17,7 +17,8 @@ exports.index = (req, res) => {
                     res.render('products', {
                         title: 'Publishing',
                         products,
-                        categories
+                        categories,
+                        publish: true
                     });
                 });
         });

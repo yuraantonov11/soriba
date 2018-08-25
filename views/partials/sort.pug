@@ -1,0 +1,23 @@
+// SORT MODES
+.dropdown.pull-right
+    a#dropdown-sortmode.dropdown-toggle.text-muted(data-toggle='dropdown' href='#' title='Sort')
+        small
+            span.glyphicon.glyphicon-sort
+            | &nbsp;Sort
+    ul.dropdown-menu(role='menu' aria-labelledby='dropdown-sortmode')
+        li(role='menuitem')
+            a(href='${question.collection.configuration.value(')
+                span.glyphicon.glyphicon-sort-by-attributes-alt
+                |  Relevance
+        li(role='menuitem')
+            a(href='${question.collection.configuration.value(')
+                span.glyphicon.glyphicon-sort-by-order-alt
+                |  Recency
+        li(role='menuitem')
+            a(href='${question.collection.configuration.value(')
+                span.glyphicon.glyphicon-sort-by-alphabet
+                |  Title (A-Z)
+        li(role='menuitem')
+            a(href='${question.collection.configuration.value(')
+                span.glyphicon.glyphicon-sort-by-alphabet-alt
+                |  Title (Z-A)
