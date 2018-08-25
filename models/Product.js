@@ -27,6 +27,10 @@ const productSchema = new Schema({
         type: Schema.Types.Boolean,
         default: false
     },
+    imported: {
+        type: Schema.Types.Boolean,
+        default: false
+    },
     categories: [{
         type: Schema.Types.ObjectId,
         ref: 'Category'

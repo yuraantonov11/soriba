@@ -3,6 +3,8 @@ extends layout
 block content
     h3= title
     if(publish)
+        button.btn.btn-light(onclick='window.history.back()')
+            i.fa.fa-chevron-left
         ul#myTab.nav.nav-tabs.justify-content-center(role='tablist')
             li.nav-item
                 a#home-tab.nav-link.active(data-toggle='tab', href='#published', role='tab', aria-controls='home', aria-selected='true') PUBLISHED

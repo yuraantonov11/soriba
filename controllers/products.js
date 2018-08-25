@@ -172,6 +172,7 @@ exports.getAll = (req, res) => {
             rating: 1,
             price: 1,
             link: 1,
+            imported: 1,
             createdAt: 1,
         })
         .exec((err, products) => {
