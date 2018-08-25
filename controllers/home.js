@@ -19,7 +19,7 @@ exports.index = (req, res) => {
                         products,
                         categories,
                         publish: true,
-                        main: true
+                        main: true,
                     });
                 });
         });
