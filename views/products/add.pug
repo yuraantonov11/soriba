@@ -18,7 +18,7 @@ block content
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='choice') Sansavvy Choice
                     input.form-control.sansChoice(type='checkbox', name='choice', id='choice')
-                .listWrap
+                .listWrap.justify-content-center
                     - var n = 1;
                     while n < 7
                         .form-group.row
@@ -53,7 +53,7 @@ block content
                                 div
                                     img.preview-image
                         //input.form-control(type='file', name='product-image', id='image', accept=".png, .jpg, .jpeg", required)
-                .form-group.row
+                .form-group.row.justify-content-center
                     each category in categories
                         label.col-sm-2.col-md-2.col-form-label.font-weight-bold.text-right(for=category._id)=category.name
                             input(type='checkbox', name='categories' value=category._id id=category._id)

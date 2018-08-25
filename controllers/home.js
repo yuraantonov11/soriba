@@ -18,7 +18,8 @@ exports.index = (req, res) => {
                         title: 'Publishing',
                         products,
                         categories,
-                        publish: true
+                        publish: true,
+                        main: true
                     });
                 });
         });
