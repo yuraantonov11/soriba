@@ -7,6 +7,7 @@ const Category = require('../models/Category');
 exports.index = (req, res) => {
     Product
         .find({})
+        .where('imported').equals(true)
         .exec((err, products) => {
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
@@ -18,6 +19,7 @@ exports.index = (req, res) => {
                         title: 'Publishing',
                         products,
                         categories,
+                        controls: true,
                         publish: true,
                         main: true,
                     });

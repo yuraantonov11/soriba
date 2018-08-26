@@ -6,23 +6,23 @@ const Category = require('../models/Category');
  */
 exports.index = (req, res) => {
     Product
-        .find({})
-        .exec((err, products) => {
-            if (err) return res.send(err);
+    .find({})
+    .exec((err, products) => {
+        if (err) return res.send(err);
+        // this will log all of the users with each of their posts
+        Category.find({})
+        .exec((err, categories) => {
+            if (err) console.log(err);
             // this will log all of the users with each of their posts
-            Category.find({})
-                .exec((err, categories) => {
-                    if (err) console.log(err);
-                    // this will log all of the users with each of their posts
-                    res.render('products/index', {
-                        title: 'All Products',
-                        products,
-                        categories: JSON.stringify(categories),
-                        importBtn: true,
-                        controls: true,
-                    });
-                });
+            res.render('products/index', {
+                title: 'All Products',
+                products,
+                categories: JSON.stringify(categories),
+                importBtn: true,
+                controls: true,
+            });
         });
+    });
 };
 /**
  * GET /
@@ -31,25 +31,28 @@ exports.index = (req, res) => {
 exports.editProductPage = (req, res) => {
     const { productId } = req.params;
     Product
-        .findById(productId)
-        .populate('categories', '_id')
-        .exec((err, product) => {
-            if (err) return res.send(err);
+    .findById(productId)
+    .populate('categories', '_id')
+    .exec((err, product) => {
+        if (err) return res.send(err);
+        // this will log all of the users with each of their posts
+        // product.categories.map(c => c._id);
+        Category.find({})
+        .exec((err, c) => {
+            if (err) console.log(err);
             // this will log all of the users with each of their posts
-            // product.categories.map(c => c._id);
-            Category.find({})
-                .exec((err, c) => {
-                    if (err) console.log(err);
-                    // this will log all of the users with each of their posts
-                    const categories = c.map(e => ({ name: e.name, _id: e._id.toString() }));
-                    product.categories = product.categories.map(c => c._id);
-                    res.render('products/edit', {
-                        title: 'Edit Product',
-                        categories: JSON.parse(JSON.stringify(categories)),
-                        productData: JSON.parse(JSON.stringify(product))
-                    });
-                });
+            const categories = c.map(e => ({
+                name: e.name,
+                _id: e._id.toString()
+            }));
+            product.categories = product.categories.map(c => c._id);
+            res.render('products/edit', {
+                title: 'Edit Product',
+                categories: JSON.parse(JSON.stringify(categories)),
+                productData: JSON.parse(JSON.stringify(product))
+            });
         });
+    });
 };
 
 /**
@@ -134,24 +137,24 @@ exports.editProduct = (req, res) => {
  */
 exports.indexMyProducts = (req, res) => {
     Product
-        .find({
-            creator: req.user._id
-        })
-        .exec((err, products) => {
-            if (err) return res.send(err);
+    .find({
+        creator: req.user._id
+    })
+    .exec((err, products) => {
+        if (err) return res.send(err);
+        // this will log all of the users with each of their posts
+        Category.find({})
+        .exec((err, categories) => {
+            if (err) console.log(err);
             // this will log all of the users with each of their posts
-            Category.find({})
-                .exec((err, categories) => {
-                    if (err) console.log(err);
-                    // this will log all of the users with each of their posts
-                    res.render('products/my-products', {
-                        title: 'My Products',
-                        products,
-                        categories,
-                        controls: true
-                    });
-                });
+            res.render('products/my-products', {
+                title: 'My Products',
+                products,
+                categories,
+                controls: true
+            });
         });
+    });
 };
 
 
@@ -165,21 +168,21 @@ exports.getAll = (req, res) => {
         if (req.query[query]) queries[query] = req.query[query];
     }
     Product
-        .find(queries)
-        .select({
-            name: 1,
-            title: 1,
-            rating: 1,
-            price: 1,
-            link: 1,
-            imported: 1,
-            createdAt: 1,
-        })
-        .exec((err, products) => {
-            if (err) return res.send(err);
-            // this will log all of the users with each of their posts
-            res.send(products);
-        });
+    .find(queries)
+    .select({
+        name: 1,
+        title: 1,
+        rating: 1,
+        price: 1,
+        link: 1,
+        imported: 1,
+        createdAt: 1,
+    })
+    .exec((err, products) => {
+        if (err) return res.send(err);
+        // this will log all of the users with each of their posts
+        res.send(products);
+    });
 };
 
 /**
@@ -201,10 +204,117 @@ exports.delete = (req, res) => {
     Product.deleteMany({
         _id: { $in: body.ids }
     })
-        .exec((err, data) => {
-            if (err) return res.send(err);
-            // this will log all of the users with each of their posts
+    .exec((err, data) => {
+        if (err) return res.send(500, err);
+        // this will log all of the users with each of their posts
+        res.sendStatus(200);
+    });
+};
+/**
+ * POST /
+ * Import Product.
+ */
+exports.importProduct = (req, res) => {
+    const { productId } = req.params;
+    Product.update({ _id: productId }, { $set: { imported: true } }, (err) => {
+        if (err) {
+            console.error(err);
+            res.sendStatus(500);
+        } else {
             res.sendStatus(200);
+        }
+    });
+};
+/**
+ * POST /
+ * Export Product.
+ */
+exports.exportProduct = (req, res) => {
+    const { productId } = req.params;
+    Product.update({ _id: productId }, { $set: { imported: false } }, (err) => {
+        if (err) {
+            console.error(err);
+            res.sendStatus(500);
+        } else {
+            res.sendStatus(200);
+        }
+    });
+};
+
+/**
+ * GET /
+ * Export Products.
+ */
+exports.exportProducts = (req, res) => {
+    const { products } = req.body;
+    if (!products) {
+        // bad request!
+        req.flash('error', { msg: 'Products not selected.' });
+        return res.redirect('/products-page/');
+    }
+
+    Product.update({ _id: { $in: products } }, { $set: { imported: false } }, (err) => {
+        if (err) {
+            // error!
+            console.error(err);
+            req.flash('error', { msg: 'Error.' });
+        } else {
+            // saved!
+            req.flash('success', { msg: 'Products are imported.' });
+        }
+        return res.redirect('/products-page/');
+    });
+};
+
+/**
+ * POST /
+ * Export Products.
+ */
+exports.importProducts = (req, res) => {
+    const { products } = req.body;
+    if (!products) {
+        // bad request!
+        req.flash('errors', { msg: 'Products are not selected.' });
+        return res.redirect('/products-page/');
+    }
+
+    Product.update({ _id: { $in: products } }, { $set: { imported: true } }, (err) => {
+        if (err) {
+            // error!
+            console.error(err);
+            req.flash('errors', { msg: 'Error.' });
+        } else {
+            // saved!
+            req.flash('success', { msg: 'Products are imported.' });
+        }
+        return res.redirect('/products-page/');
+    });
+};
+/**
+ * POST /
+ * Export Products.
+ */
+exports.deleteProducts = (req, res) => {
+    const { products } = req.body;
+    if (!products) {
+        // bad request!
+        req.flash('errors', { msg: 'Products are not selected.' });
+        return res.redirect('/products-page/');
+    }
+    Product.deleteMany({
+        _id: { $in: products }
+    })
+        .exec((err, data) => {
+            // this will log all of the users with each of their posts
+            if (err) {
+                // error!
+                console.error(err);
+                req.flash('errors', { msg: 'Error.' });
+            } else {
+                // saved!
+                req.flash('success', { msg: 'Products are deleted.' });
+            }
+            return res.redirect('/products-page/');
         });
 };
 
@@ -246,12 +356,12 @@ exports.add = (req, res) => {
  */
 exports.addPage = (req, res) => {
     Category.find({})
-        .exec((err, categories) => {
-            if (err) console.log(err);
-            // this will log all of the users with each of their posts
-            res.render('products/add', {
-                title: 'Add new Product',
-                categories
-            });
+    .exec((err, categories) => {
+        if (err) console.log(err);
+        // this will log all of the users with each of their posts
+        res.render('products/add', {
+            title: 'Add new Product',
+            categories
         });
+    });
 };

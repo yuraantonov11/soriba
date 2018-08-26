@@ -137,6 +137,7 @@ $(document)
 
 
         function initjsGrid() {
+            const controls = $('#all-products--actions');
             const MultiselectField = function (config) {
                 jsGrid.Field.call(this, config);
             };
@@ -193,6 +194,18 @@ $(document)
             jsGrid.fields.multiselect = MultiselectField;
 
             let selectedItems = [];
+
+            controls.find('.import').on('click', function () {
+                if ($(this).hasClass('disabled')) return;
+                console.log(selectedItems);
+            });
+            controls.find('.delete').on('click', function () {
+                if ($(this).hasClass('disabled')) return;
+                const confirmation = confirm('Do you really want to delete product?');
+                console.log(confirmation);
+                console.log(selectedItems);
+            });
+
             $('#jsGrid')
                 .jsGrid({
                     height: '70%',
@@ -232,11 +245,25 @@ $(document)
                                 return $('<input>')
                                     .attr('type', 'checkbox')
                                     .on('change', function () {
-                                        if ($(this)
-                                            .is(':checked')) {
+                                        const buttons = controls.find('button');
+                                        if ($(this).is(':checked')) {
+                                            controls.find('form').append(`<input type="hidden" id=${item._id} value=${item._id} name="products">`);
                                             selectedItems.push(item);
+                                            buttons.toggleClass('disabled', selectedItems.length === 0);
+                                            if (selectedItems.length === 0) {
+                                                buttons.attr('disabled', true);
+                                            } else {
+                                                buttons.removeAttr('disabled');
+                                            }
                                         } else {
+                                            controls.find(`#${item._id}`).remove();
                                             selectedItems = $.grep(selectedItems, i => i !== item);
+                                            buttons.toggleClass('disabled', selectedItems.length === 0);
+                                            if (selectedItems.length === 0) {
+                                                buttons.attr('disabled', true);
+                                            } else {
+                                                buttons.removeAttr('disabled');
+                                            }
                                         }
                                     });
                             },
@@ -296,18 +323,14 @@ $(document)
                             width: 30,
                             itemTemplate(value, item) {
                                 console.log(value);
-                                const $customDeleteButton = $('<button>')
-                                    .attr({ class: 'btn btn-primary fas fa-file-import', disabled: value })
-                                    .click((e) => {
-                                        // return $.ajax({
-                                        //     type: 'POST',
-                                        //     url: '/delete-products',
-                                        //     data: { ids: [item] }
-                                        // });
-                                        e.stopPropagation();
-                                    });
+                                const importButton = $('<button>')
+                                    .attr({ class: 'btn btn-info fas fa-file-import', disabled: value, title: 'Import' })
+                                    .click(() => $.ajax({
+                                        type: 'POST',
+                                        url: `/products/${item._id}/import`,
+                                    }));
                                 return $('<div>')
-                                    .append($customDeleteButton);
+                                    .append(importButton);
                             }
                         },
                         // {

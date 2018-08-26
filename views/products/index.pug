@@ -6,5 +6,11 @@ block content
     .pb-2.mt-2.mb-4.border-bottom
         h3= title
 
+    #all-products--actions.row.pb-2
+        form(action='/products/import', method='POST')
+            button.import.btn.btn-outline-info.disabled(type='submit', disabled) Import selected
+        form(action='/products/delete', method='POST')
+            button.delete.btn.btn-outline-danger.disabled(type='submit', disabled) Delete selected
+
     .row
         #jsGrid

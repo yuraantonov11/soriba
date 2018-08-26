@@ -8,16 +8,18 @@ div.link.cartWrap
                 button.btn.btn-warning.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                     | Action
                 .dropdown-menu
-                    a.dropdown-item(href='/products/' + product._id) Edit
-                    a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
+                    unless(publish)
+                        a.dropdown-item(href='/products/' + product._id) Edit
+
                     if (importBtn)
                         a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Import
-        if(publish)
-            .btn-group.position-absolute.publishable-btn
-                if product.published
-                    a.btn.btn-warning(href='/products/'+product._id+'/unpublish', role='button') Unpublish
-                else
-                    a.btn.btn-success(href='/products/'+product._id+'/publish', role='button') Publish
+                    if(publish)
+                        .publishable-btn
+                            if product.published
+                                a.dropdown-item(href='/products/'+product._id+'/unpublish', role='button') Unpublish
+                            else
+                                a.dropdown-item(href='/products/'+product._id+'/publish', role='button') Publish
+                    a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
         p.name.text-white.p-1= product.name
         .card-body
             p.title= product.title
