@@ -295,10 +295,14 @@ input:checked + .slider:before {
 .cartWrap .card-body{
   position: relative;
 }
-.cartWrap .card-body img:not(.checkOut){
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
+.cartWrap {
+  .social, #image-modal{
+    position: absolute;
+    bottom: 15px;
+  }
+  #image-modal{
+    right: 15px;
+  }
 }
 .cartWrap .card-body{
   padding-bottom: 50px;
