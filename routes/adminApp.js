@@ -43,7 +43,7 @@ router.get('*/uploads', express.static('uploads'));
 /**
  * Primary app routes.
  */
-router.get('/', homeController.index);
+router.get('/', homeController.publishedPage);
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
 router.get('/logout', userController.logout);
@@ -79,7 +79,7 @@ router.get('/products/:productId', productsController.editProductPage);
 router.get('/products/:productId/publish', productsController.publishProduct);
 router.get('/products/:productId/unpublish', productsController.unpublishProduct);
 router.get('/products/:productId/import', productsController.importProduct);
-router.get('/products/:productId/export', productsController.exportProduct);
+router.post('/products/:productId/export', productsController.exportProduct);
 router.post('/product-edit/:productId', upload.single('product-image'), productsController.editProduct);
 router.get('/products', productsController.getAll);
 router.post('/products', upload.single('product-image'), productsController.add);

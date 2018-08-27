@@ -20,6 +20,7 @@ const sass = require('node-sass-middleware');
 const vhost = require('vhost');
 
 const adminRouter = require('./routes/adminApp');
+const mainRouter = require('./routes/mainApp');
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -126,10 +127,8 @@ const router = express.Router();
 //     res.send(url);
 // });
 // app.use(subdomain('adminportal', adminRouter));
-app.use(vhost(process.env.DOMAIN, router));
+app.use(vhost(process.env.DOMAIN, mainRouter));
 app.use(vhost(`${process.env.SUBDOMAIN}.${process.env.DOMAIN}`, adminRouter));
-router.get('/', (req, res) => res.send('Home Page'));
-
 
 
 /**

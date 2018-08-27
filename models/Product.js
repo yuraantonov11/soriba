@@ -29,7 +29,7 @@ const productSchema = new Schema({
     },
     imported: {
         type: Schema.Types.Boolean,
-        default: false
+        default: true
     },
     categories: [{
         type: Schema.Types.ObjectId,

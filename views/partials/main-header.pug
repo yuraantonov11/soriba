@@ -9,8 +9,8 @@
         .collapse.navbar-collapse
             ul.nav.navbar-nav
                 each category in categories
-                    li.nav-item(class=(title === 'Publishing') ? 'active' : undefined)
-                        a.nav-link(href='/')= category.name
+                    li.nav-item(class=(categoryQuery == category._id) ? 'active' : undefined)
+                        a.nav-link(href='/?category='+category._id)= category.name
             ul.nav.navbar-nav.ml-auto
                 if !user
                     li.nav-item(class=(title === 'Login') ? 'active' : undefined)
