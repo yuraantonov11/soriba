@@ -18,7 +18,7 @@ exports.index = (req, res) => {
                     if (err) console.log(err);
                     // this will log all of the users with each of their posts
                     res.render('products', {
-                        title: 'Home Page',
+                        title: '',
                         products,
                         categories,
                         main: true,
@@ -45,7 +45,7 @@ exports.publishedPage = (req, res) => {
                     if (err) console.log(err);
                     // this will log all of the users with each of their posts
                     res.render('products', {
-                        title: 'Publishing',
+                        title: '',
                         products,
                         categories,
                         controls: true,
