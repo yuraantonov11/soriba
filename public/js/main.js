@@ -45,6 +45,23 @@ $(document)
                     alert('error');
                 });
         };
+        window.exportProduct = function (id) {
+            $.post({
+                url: `/products/${id}/export`,
+                data: {
+                    ids: [id]
+                }
+            })
+                .done(() => {
+                    $(`div[data-id=${id}]`)
+                        .parent()
+                        .parent()
+                        .remove();
+                })
+                .fail(() => {
+                    alert('error');
+                });
+        };
 
         $('.change-user-role')
             .on('change', function () {
@@ -195,15 +212,9 @@ $(document)
 
             let selectedItems = [];
 
-            controls.find('.import').on('click', function () {
-                if ($(this).hasClass('disabled')) return;
-                console.log(selectedItems);
-            });
             controls.find('.delete').on('click', function () {
                 if ($(this).hasClass('disabled')) return;
                 const confirmation = confirm('Do you really want to delete product?');
-                console.log(confirmation);
-                console.log(selectedItems);
             });
 
             $('#jsGrid')
@@ -323,14 +334,26 @@ $(document)
                             width: 30,
                             itemTemplate(value, item) {
                                 console.log(value);
+                                const inputValue = $('<input>')
+                                    .attr({
+                                        'hidden': true,
+                                        'name': 'products',
+                                        'value': item._id
+                                    });
                                 const importButton = $('<button>')
-                                    .attr({ class: 'btn btn-info fas fa-file-import', disabled: value, title: 'Import' })
-                                    .click(() => $.ajax({
-                                        type: 'POST',
-                                        url: `/products/${item._id}/import`,
-                                    }));
-                                return $('<div>')
-                                    .append(importButton);
+                                    .attr({
+                                        class: 'btn btn-info fas fa-file-import',
+                                        disabled: value,
+                                        title: 'Import',
+                                        type: 'submit'
+                                    });
+                                return $('<form>')
+                                    .attr({
+                                        action: '/products/import',
+                                        method: 'POST'
+                                    })
+                                    .append(importButton)
+                                    .append(inputValue);
                             }
                         },
                         // {
