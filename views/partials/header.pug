@@ -8,9 +8,9 @@
             span.navbar-toggler-icon
         .collapse.navbar-collapse
             ul.nav.navbar-nav
-                li.nav-item(class=(title === 'Publishing') ? 'active' : undefined)
-                    a.nav-link(href='/') Publishing
                 if user && user.role === 'admin'
+                    li.nav-item(class=(title === 'Publishing') ? 'active' : undefined)
+                        a.nav-link(href='/') Publishing
                     li.nav-item(class=(title === 'My Products') ? 'active' : undefined)
                         a.nav-link(href='/my-products-page') My Products
                     li.nav-item(class=(title === 'All Products') ? 'active' : undefined)

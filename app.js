@@ -122,10 +122,6 @@ const router = express.Router();
 // app.use(router);
 // adminportal.sansavvy.com
 
-// app.use('/', function(req, res) {
-//     var url = req.protocol + '://' + req.get('host') + req.originalUrl;
-//     res.send(url);
-// });
 // app.use(subdomain('adminportal', adminRouter));
 app.use(vhost(process.env.DOMAIN, mainRouter));
 app.use(vhost(`${process.env.SUBDOMAIN}.${process.env.DOMAIN}`, adminRouter));
