@@ -34,6 +34,7 @@ const categoriesController = require('../controllers/categories');
 
 router.get('*/uploads', express.static('uploads'));
 router.use((req, res, next) => {
+    console.log(req.isAuthenticated());
     if (!req.isAuthenticated()) {
         res.redirect(301, `http://${process.env.DOMAIN}`);
     }
