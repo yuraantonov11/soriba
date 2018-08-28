@@ -20,7 +20,6 @@ const sass = require('node-sass-middleware');
 const vhost = require('vhost');
 
 const adminRouter = require('./routes/adminApp');
-const mainRouter = require('./routes/mainApp');
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -119,11 +118,25 @@ app.use('/webfonts', express.static(path.join(__dirname, 'node_modules/@fortawes
 
 const router = express.Router();
 
+const homeController = require('./controllers/home');
+const userController = require('./controllers/user');
+
+// main router
+router.get('/', homeController.index);
+router.get('/login', userController.getLogin);
+router.post('/login', userController.postLogin);
+router.get('/logout', userController.logout);
+router.get('/forgot', userController.getForgot);
+router.post('/forgot', userController.postForgot);
+router.get('/reset/:token', userController.getReset);
+router.post('/reset/:token', userController.postReset);
+router.get('/signup', userController.getSignup);
+router.post('/signup', userController.postSignup);
 // app.use(router);
 // adminportal.sansavvy.com
 
 // app.use(subdomain('adminportal', adminRouter));
-app.use(vhost(process.env.DOMAIN, mainRouter));
+app.use(vhost(process.env.DOMAIN, router));
 app.use(vhost(`${process.env.SUBDOMAIN}.${process.env.DOMAIN}`, adminRouter));
 
 
