@@ -10,6 +10,20 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
+function formatDate(date) {
+    const monthNames = [
+        'January', 'February', 'March',
+        'April', 'May', 'June', 'July',
+        'August', 'September', 'October',
+        'November', 'December'
+    ];
+
+    const day = date.getDate();
+    const monthIndex = date.getMonth();
+    const year = date.getFullYear();
+
+    return `${day} ${monthNames[monthIndex]} ${year}`;
+}
 
 $(document)
     .ready(() => {
@@ -282,6 +296,12 @@ $(document)
                             width: 30
                         },
                         {
+                            name: '_id',
+                            title: 'Id',
+                            type: 'text',
+                            width: 165
+                        },
+                        {
                             name: 'name',
                             title: 'Name',
                             type: 'text',
@@ -313,6 +333,9 @@ $(document)
                         {
                             name: 'createdAt',
                             title: 'Date',
+                            itemTemplate(value) {
+                                return formatDate(new Date(value));
+                            }
                         },
                         {
                             name: 'link',
@@ -328,6 +351,17 @@ $(document)
                             }
                         },
                         {
+                            name: 'categories',
+                            title: 'Categories',
+                            type: 'text',
+                            width: 100,
+                            itemTemplate(value) {
+                                const names = value.map(i => i.name);
+                                const re = new RegExp(',', 'g');
+                                return $('<div>').append(names.toString().replace(re, ', '));
+                            }
+                        },
+                        {
                             name: 'imported',
                             title: 'Import',
                             type: 'boolean',
@@ -335,9 +369,9 @@ $(document)
                             itemTemplate(value, item) {
                                 const inputValue = $('<input>')
                                     .attr({
-                                        'hidden': true,
-                                        'name': 'products',
-                                        'value': item._id
+                                        hidden: true,
+                                        name: 'products',
+                                        value: item._id
                                     });
                                 const importButton = $('<button>')
                                     .attr({

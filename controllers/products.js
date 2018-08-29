@@ -174,6 +174,7 @@ exports.getAll = (req, res) => {
     }
     Product
         .find(queries)
+        .populate('categories', 'name')
         .select({
             name: 1,
             title: 1,
@@ -182,10 +183,12 @@ exports.getAll = (req, res) => {
             link: 1,
             imported: 1,
             createdAt: 1,
+            categories: 1,
         })
         .exec((err, products) => {
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
+            console.log(products);
             res.send(products);
         });
 };
