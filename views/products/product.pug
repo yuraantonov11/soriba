@@ -21,7 +21,8 @@ div.link.cartWrap
                                 a.dropdown-item(href='/products/'+product._id+'/publish', role='button') Publish
                         a.dropdown-item(onclick='exportProduct('+ JSON.stringify(product._id)+')') Delete
                     else
-                        a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
+                        if user && user.role === 'admin'
+                            a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
         p.name.text-white.p-1= product.name
         .card-body
             p.title= product.title

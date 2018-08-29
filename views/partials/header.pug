@@ -8,7 +8,7 @@
             span.navbar-toggler-icon
         .collapse.navbar-collapse
             ul.nav.navbar-nav
-                if user && user.role === 'admin'
+                if user && user.role === 'admin' || user.role === 'researcher'
                     li.nav-item(class=(title === 'Publishing') ? 'active' : undefined)
                         a.nav-link(href='/') Publishing
                     li.nav-item(class=(title === 'My Products') ? 'active' : undefined)
@@ -17,9 +17,10 @@
                         a.nav-link(href='/products-page') All Products
                     li.nav-item(class=(title === 'Add Product') ? 'active' : undefined)
                         a.nav-link(href='/products/add') Add Product
+                if user && user.role === 'admin'
                     li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
                         a.nav-link(href='/categories-page') Categories
-                    li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
+                    li.nav-item(class=(title === 'Users') ? 'active' : undefined)
                         a.nav-link(href='/users-page') Users
                     li.nav-item(class=(title === 'Create user') ? 'active' : undefined)
                         a.nav-link(href='/signup') Create user

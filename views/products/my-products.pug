@@ -3,7 +3,7 @@ extends ../layout
 block content
     .pb-2.mt-2.mb-4.border-bottom
         h3= title
-        if products.length > 0
+        if (products.length > 0 && user && user.role === 'admin')
             .btn.btn-secondary.delete-products.disabled delete selected
                 span.selected-count (0)
 
