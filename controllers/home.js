@@ -36,7 +36,7 @@ exports.index = (req, res) => {
  * GET /
  * Home page.
  */
-exports.publishedPage = (req, res) => {
+exports.publishingPage = (req, res) => {
     const categoryQuery = req.query.category;
     const query = {};
     if (categoryQuery) {
@@ -47,12 +47,10 @@ exports.publishedPage = (req, res) => {
         .where('imported').equals(true)
         .exec((err, products) => {
             if (err) return res.send(err);
-            console.log(categoryQuery);
-            console.log(products);
             // this will log all of the users with each of their posts
             Category.find({})
                 .exec((err, categories) => {
-                    if (err) console.log(err);
+                    if (err) console.error(err);
                     // this will log all of the users with each of their posts
                     res.render('products', {
                         title: '',

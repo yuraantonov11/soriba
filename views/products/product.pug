@@ -8,7 +8,7 @@ div.link.cartWrap
                 button.btn.btn-warning.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
                     | Action
                 .dropdown-menu
-                    unless(publish)
+                    unless(publish && product.published)
                         a.dropdown-item(href='/products/' + product._id) Edit
 
                     if (importBtn)

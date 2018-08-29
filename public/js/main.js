@@ -333,7 +333,6 @@ $(document)
                             type: 'boolean',
                             width: 30,
                             itemTemplate(value, item) {
-                                console.log(value);
                                 const inputValue = $('<input>')
                                     .attr({
                                         'hidden': true,

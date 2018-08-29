@@ -45,7 +45,7 @@ router.get('*/uploads', express.static('uploads'));
 /**
  * Primary app routes.
  */
-router.get('/', homeController.publishedPage);
+router.get('/', homeController.publishingPage);
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
 router.get('/logout', userController.logout);

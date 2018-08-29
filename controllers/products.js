@@ -6,23 +6,23 @@ const Category = require('../models/Category');
  */
 exports.index = (req, res) => {
     Product
-    .find({})
-    .exec((err, products) => {
-        if (err) return res.send(err);
-        // this will log all of the users with each of their posts
-        Category.find({})
-        .exec((err, categories) => {
-            if (err) console.log(err);
+        .find({})
+        .exec((err, products) => {
+            if (err) return res.send(err);
             // this will log all of the users with each of their posts
-            res.render('products/index', {
-                title: 'All Products',
-                products,
-                categories: JSON.stringify(categories),
-                importBtn: true,
-                controls: true,
-            });
+            Category.find({})
+                .exec((err, categories) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    res.render('products/index', {
+                        title: 'All Products',
+                        products,
+                        categories: JSON.stringify(categories),
+                        importBtn: true,
+                        controls: true,
+                    });
+                });
         });
-    });
 };
 /**
  * GET /
@@ -31,28 +31,28 @@ exports.index = (req, res) => {
 exports.editProductPage = (req, res) => {
     const { productId } = req.params;
     Product
-    .findById(productId)
-    .populate('categories', '_id')
-    .exec((err, product) => {
-        if (err) return res.send(err);
-        // this will log all of the users with each of their posts
-        // product.categories.map(c => c._id);
-        Category.find({})
-        .exec((err, c) => {
-            if (err) console.log(err);
+        .findById(productId)
+        .populate('categories', '_id')
+        .exec((err, product) => {
+            if (err) return res.send(err);
             // this will log all of the users with each of their posts
-            const categories = c.map(e => ({
-                name: e.name,
-                _id: e._id.toString()
-            }));
-            product.categories = product.categories.map(c => c._id);
-            res.render('products/edit', {
-                title: 'Edit Product',
-                categories: JSON.parse(JSON.stringify(categories)),
-                productData: JSON.parse(JSON.stringify(product))
-            });
+            // product.categories.map(c => c._id);
+            Category.find({})
+                .exec((err, c) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    const categories = c.map(e => ({
+                        name: e.name,
+                        _id: e._id.toString()
+                    }));
+                    product.categories = product.categories.map(c => c._id);
+                    res.render('products/edit', {
+                        title: 'Edit Product',
+                        categories: JSON.parse(JSON.stringify(categories)),
+                        productData: JSON.parse(JSON.stringify(product))
+                    });
+                });
         });
-    });
 };
 
 /**
@@ -136,25 +136,30 @@ exports.editProduct = (req, res) => {
  * My Products page.
  */
 exports.indexMyProducts = (req, res) => {
+    if (!req.user || !req.user._id) {
+        req.flash('info', { msg: 'You need to authorize.' });
+        return res.redirect('/');
+    }
+
     Product
-    .find({
-        creator: req.user._id
-    })
-    .exec((err, products) => {
-        if (err) return res.send(err);
-        // this will log all of the users with each of their posts
-        Category.find({})
-        .exec((err, categories) => {
-            if (err) console.log(err);
+        .find({
+            creator: req.user._id
+        })
+        .exec((err, products) => {
+            if (err) return res.send(err);
             // this will log all of the users with each of their posts
-            res.render('products/my-products', {
-                title: 'My Products',
-                products,
-                categories,
-                controls: true
-            });
+            Category.find({})
+                .exec((err, categories) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    res.render('products/my-products', {
+                        title: 'My Products',
+                        products,
+                        categories,
+                        controls: true
+                    });
+                });
         });
-    });
 };
 
 
@@ -168,21 +173,21 @@ exports.getAll = (req, res) => {
         if (req.query[query]) queries[query] = req.query[query];
     }
     Product
-    .find(queries)
-    .select({
-        name: 1,
-        title: 1,
-        rating: 1,
-        price: 1,
-        link: 1,
-        imported: 1,
-        createdAt: 1,
-    })
-    .exec((err, products) => {
-        if (err) return res.send(err);
-        // this will log all of the users with each of their posts
-        res.send(products);
-    });
+        .find(queries)
+        .select({
+            name: 1,
+            title: 1,
+            rating: 1,
+            price: 1,
+            link: 1,
+            imported: 1,
+            createdAt: 1,
+        })
+        .exec((err, products) => {
+            if (err) return res.send(err);
+            // this will log all of the users with each of their posts
+            res.send(products);
+        });
 };
 
 /**
@@ -204,11 +209,11 @@ exports.delete = (req, res) => {
     Product.deleteMany({
         _id: { $in: body.ids }
     })
-    .exec((err, data) => {
-        if (err) return res.send(500, err);
-        // this will log all of the users with each of their posts
-        res.sendStatus(200);
-    });
+        .exec((err, data) => {
+            if (err) return res.send(500, err);
+            // this will log all of the users with each of their posts
+            res.sendStatus(200);
+        });
 };
 /**
  * POST /
@@ -356,12 +361,12 @@ exports.add = (req, res) => {
  */
 exports.addPage = (req, res) => {
     Category.find({})
-    .exec((err, categories) => {
-        if (err) console.log(err);
-        // this will log all of the users with each of their posts
-        res.render('products/add', {
-            title: 'Add new Product',
-            categories
+        .exec((err, categories) => {
+            if (err) console.log(err);
+            // this will log all of the users with each of their posts
+            res.render('products/add', {
+                title: 'Add new Product',
+                categories
+            });
         });
-    });
 };
