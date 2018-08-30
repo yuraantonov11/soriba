@@ -45,7 +45,20 @@ router.get('*/uploads', express.static('uploads'));
 /**
  * Primary app routes.
  */
-router.get('/', homeController.publishingPage);
+function permit(...allowed) {
+    const isAllowed = role => allowed.indexOf(role) > -1;
+
+    // return a middleware
+    return (req, res, next) => {
+        if (req.user && isAllowed(req.user.role))
+            next(); // role is allowed, so continue on the next middleware
+        else {
+            req.flash('info', { msg: 'You need to authorize as admin.' });
+            return res.redirect('/login');
+        }
+    }
+}
+router.get('/', permit('admin'), homeController.publishingPage);
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
 router.get('/logout', userController.logout);

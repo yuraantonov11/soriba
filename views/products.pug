@@ -3,7 +3,8 @@ extends layout
 block content
     h3= title
     if(publish)
-        button.btn.btn-light(onclick='window.history.back()')
+        //button.btn.btn-light(onclick='window.history.back()')
+        a.btn.btn-light(href='/my-products-page')
             i.fa.fa-chevron-left
         ul#myTab.nav.nav-tabs.justify-content-center(role='tablist')
             li.nav-item

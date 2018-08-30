@@ -188,7 +188,6 @@ exports.getAll = (req, res) => {
         .exec((err, products) => {
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
-            console.log(products);
             res.send(products);
         });
 };

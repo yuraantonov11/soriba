@@ -53,7 +53,13 @@ exports.postLogin = (req, res, next) => {
                 return next(err);
             }
             req.flash('success', { msg: 'Success! You are logged in.' });
-            res.redirect(req.session.returnTo || '/');
+            if (user.role === 'admin') {
+                return res.redirect('/');
+            }
+            if (user.role === 'researcher') {
+                return res.redirect('/my-products-page');
+            }
+            return res.redirect(req.session.returnTo || '/');
         });
     })(req, res, next);
 };
