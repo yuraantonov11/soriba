@@ -10,7 +10,6 @@ div.link.cartWrap
                 .dropdown-menu
                     unless(publish && product.published)
                         a.dropdown-item(href='/products/' + product._id) Edit
-
                     if (importBtn)
                         a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Import
                     if(publish)
@@ -19,7 +18,7 @@ div.link.cartWrap
                                 a.dropdown-item(href='/products/'+product._id+'/unpublish', role='button') Unpublish
                             else
                                 a.dropdown-item(href='/products/'+product._id+'/publish', role='button') Publish
-                        a.dropdown-item(onclick='exportProduct('+ JSON.stringify(product._id)+')') Delete
+                                a.dropdown-item(onclick='exportProduct('+ JSON.stringify(product._id)+')') Delete
                     else
                         if user && user.role === 'admin'
                             a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete

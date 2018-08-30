@@ -452,6 +452,7 @@ exports.postForgot = (req, res, next) => {
 exports.index = (req, res) => {
     User
         .find({})
+        .where('role').in(['researcher', 'admin'])
         .exec((err, users) => {
             if (err) console.log(err);
             // this will log all of the users with each of their posts

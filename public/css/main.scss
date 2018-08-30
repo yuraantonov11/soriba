@@ -329,6 +329,28 @@ input:checked + .slider:before {
 .publishable-btn{
   right: 0;
 }
+.navbar-main{
+  background-color: #565656;
+  .navbar-nav{
+    .nav-item{
+      &.active{
+        .nav-link{
+          color: #dc29ff;
+        }
+      }
+      .nav-link{
+        font-size: 10px;
+        color: #bdb647;
+        img {
+          width: 20px;
+          min-height: 20px;
+          margin: 5px auto;
+          display: block;
+        }
+      }
+    }
+  }
+}
 
 @media (max-width: 991px) {
   .listWrap{

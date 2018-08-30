@@ -1,4 +1,4 @@
-.navbar.navbar-light.fixed-top.navbar-expand-md
+.navbar.navbar-light.fixed-top.navbar-expand-md.navbar-main
     .container
         a.navbar-brand(href='/')
             i.fas.fa-cube
@@ -10,7 +10,9 @@
             ul.nav.navbar-nav
                 each category in categories
                     li.nav-item(class=(categoryQuery == category._id) ? 'active' : undefined)
-                        a.nav-link(href='/?category='+category._id)= category.name
+                        a.nav-link(href='/?category='+category._id)
+                            img(src=category.image)
+                            |#{category.name}
             ul.nav.navbar-nav.ml-auto
                 if !user
                     li.nav-item(class=(title === 'Login') ? 'active' : undefined)

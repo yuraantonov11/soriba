@@ -11,7 +11,7 @@ block content
                     th(scope='col') #
                     th(scope='col') Image
                     th(scope='col') Email
-                    th(scope='col') Role
+                    //th(scope='col') Role
                     th(scope='col') Products Page
                 tbody
                     each userIterated, index in users
@@ -23,11 +23,11 @@ block content
                                 else
                                     img(src=userIterated.gravatar(60))
                             td=userIterated.email
-                            td
-                                select.change-user-role(value=userIterated.role, id=userIterated._id)
-                                    -
-                                        var roles = ['User', 'Admin', 'Researcher']
-                                    each role in roles
-                                        option(selected=role.toLowerCase() === userIterated.role)=role
+                            //td
+                            //    select.change-user-role(value=userIterated.role, id=userIterated._id)
+                            //        -
+                            //            var roles = ['User', 'Admin', 'Researcher']
+                            //        each role in roles
+                            //            option(selected=role.toLowerCase() === userIterated.role)=role
                             td
                                 a(href='/users/'+userIterated._id+ '/products') Products Page
