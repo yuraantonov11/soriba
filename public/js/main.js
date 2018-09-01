@@ -309,6 +309,17 @@ $(document)
                             width: 100
                         },
                         {
+                            name: 'categories',
+                            title: 'Categories',
+                            type: 'text',
+                            width: 100,
+                            itemTemplate(value) {
+                                const names = value.map(i => i.name);
+                                const re = new RegExp(',', 'g');
+                                return $('<div>').append(names.toString().replace(re, ', '));
+                            }
+                        },
+                        {
                             name: 'price',
                             title: 'Price',
                             type: 'number',
@@ -349,17 +360,6 @@ $(document)
                                     .text('Go To Item');
                                 return $('<div>')
                                     .append($link);
-                            }
-                        },
-                        {
-                            name: 'categories',
-                            title: 'Categories',
-                            type: 'text',
-                            width: 100,
-                            itemTemplate(value) {
-                                const names = value.map(i => i.name);
-                                const re = new RegExp(',', 'g');
-                                return $('<div>').append(names.toString().replace(re, ', '));
                             }
                         },
                         {
