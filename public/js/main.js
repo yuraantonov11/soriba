@@ -27,6 +27,7 @@ function formatDate(date) {
 
 $(document)
     .ready(() => {
+        $('[data-toggle="tooltip"]').tooltip();
         const requestUrl = window.location.origin;
         // categories
         // eslint-disable-next-line no-unused-vars

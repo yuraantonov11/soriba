@@ -1,6 +1,6 @@
 div.link.cartWrap
     .card.mb-3(data-id=product._id)
-        if (product.choice)
+        if(product.rating === 5)
             img.bestProduct(src='/img/best_choice-new.png', height='40px', width='150px')
         img.preview-image(src=product.image, max-width='100%')
         if(controls)
@@ -38,8 +38,7 @@ div.link.cartWrap
                             span.fa.fa-star.checked
             a.link(href=product.link)
                 img.checkOut(width='100px', height='20px', src="/img/checkout.png")
-            if(product.rating === 5)
-                img#image-modal(src='/img/save.png', height='20px', max-width='100%')
+        .card-footer.bg-transparent.d-flex.justify-content-between.align-items-center
             .social
                 a.link(href='https://www.facebook.com/sharer/sharer.php?u='+product.link, target='_blank')
                     img(src='/img/facebook.png', height='30px', max-width='100%')
@@ -49,3 +48,4 @@ div.link.cartWrap
                     img(src='/img/twitter.png', height='30px', max-width='100%')
                 a.link(href='https://pinterest.com/pin/create/button/?url='+product.link+'&media=&description='+product.title, target='_blank')
                     img(src='/img/pinterest.png', height='30px', max-width='100%')
+            i.savvy-btn.far.fa-gem(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to save product')
