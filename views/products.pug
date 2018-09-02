@@ -25,6 +25,9 @@ block content
                             .col-md-4
                                 include products/product
     else
+        if (savvyList)
+            p A Savvy List By
+                span.text-warning= ' ' + user.email
         .row
             each product, index in products
                 .col-md-4

@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const User = require('../models/User');
 const Category = require('../models/Category');
 /**
  * GET /
@@ -88,6 +89,40 @@ exports.publishProduct = (req, res) => {
         }
         res.redirect('/#published');
     });
+};
+
+/**
+ * GET /
+ * Save to list Product.
+ */
+exports.toggleSaved = (req, res) => {
+    const { productId } = req.params;
+    if (!req.user || !req.user._id) {
+        req.flash('info', { msg: 'You need to authorize.' });
+        return res.redirect('/');
+    }
+
+    User.findById(req.user._id)
+        .select('savedProducts')
+        .exec(function(err, object) {
+            let json = JSON.parse(JSON.stringify(object.savedProducts));
+            const savedProducts = new Set(json);
+            if (savedProducts.has(productId)) {
+                savedProducts.delete(productId);
+            } else {
+                savedProducts.add(productId);
+            }
+            object.savedProducts = [...savedProducts];
+            object.save(function(err, model) {
+                if (err) {
+                    console.error(err);
+                    req.flash('errors', 'Error.');
+                } else {
+                    req.flash('success', { msg: 'Success.' });
+                }
+                res.redirect('/');
+            });
+        });
 };
 
 /**

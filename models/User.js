@@ -14,6 +14,10 @@ const userSchema = new Schema({
         enum: ['researcher', 'user', 'admin'],
         default: 'user'
     },
+    savedProducts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Product'
+    }],
     email: {
         type: String,
         unique: true

@@ -34,6 +34,42 @@ exports.index = (req, res) => {
 
 /**
  * GET /
+ * Savvy List
+ */
+exports.savvyList = (req, res) => {
+    const categoryQuery = req.query.category;
+    console.log(req.user.savedProducts);
+    const query = { _id: { $in: req.user.savedProducts } };
+    if (categoryQuery) {
+        query.categories = categoryQuery;
+    }
+    Product
+        .find(query)
+        .where('imported').equals(true)
+        .where('published').equals(true)
+        .exec((err, products) => {
+            console.log(query);
+            console.log(products);
+            if (err) return res.send(err);
+            // this will log all of the users with each of their posts
+            Category.find({})
+                .exec((err, categories) => {
+                    if (err) console.log(err);
+                    // this will log all of the users with each of their posts
+                    res.render('products', {
+                        title: '',
+                        products,
+                        categories,
+                        main: true,
+                        savvyList: true,
+                        categoryQuery
+                    });
+                });
+        });
+};
+
+/**
+ * GET /
  * Home page.
  */
 exports.publishingPage = (req, res) => {

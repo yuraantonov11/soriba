@@ -31,6 +31,9 @@
                         ul.dropdown-menu
                             li.dropdown-item
                                 a(href='/account') My Account
+                            unless (savvyList)
+                                li.dropdown-item
+                                    a(href='/savvy-list') Savvy List
                             li.divider.dropdown-item
                             li.dropdown-item
                                 a(href='/logout') Logout

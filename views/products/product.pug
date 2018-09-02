@@ -48,4 +48,9 @@ div.link.cartWrap
                     img(src='/img/twitter.png', height='30px', max-width='100%')
                 a.link(href='https://pinterest.com/pin/create/button/?url='+product.link+'&media=&description='+product.title, target='_blank')
                     img(src='/img/pinterest.png', height='30px', max-width='100%')
-            i.savvy-btn.far.fa-gem(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to save product')
+            a(href='/save-product/' + product._id)
+                each savedProduct in user.savedProducts
+                    if (JSON.stringify(savedProduct) == JSON.stringify(product._id))
+                        span.savvy-btn.far.fa-gem.text-info(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to remove from saved list')
+                    else
+                        span.savvy-btn.far.fa-gem.text-secondary(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to save product')

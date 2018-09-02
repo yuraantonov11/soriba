@@ -56,7 +56,7 @@ function permit(...allowed) {
             req.flash('info', { msg: 'You need to authorize as admin.' });
             return res.redirect('/login');
         }
-    }
+    };
 }
 router.get('/', permit('admin'), homeController.publishingPage);
 router.get('/login', userController.getLogin);

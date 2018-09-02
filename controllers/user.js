@@ -155,6 +155,21 @@ exports.getAccount = (req, res) => {
         title: 'Account Management'
     });
 };
+/**
+ * GET /account
+ * Profile page Main.
+ */
+exports.getAccountMain = (req, res) => {
+    Category.find({})
+        .exec((err, categories) => {
+            if (err) console.log(err);
+            res.render('account/profile', {
+                title: 'Account Management',
+                main: true,
+                categories
+            });
+        });
+};
 
 /**
  * POST /account/profile
