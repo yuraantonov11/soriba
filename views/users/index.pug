@@ -25,7 +25,7 @@ block content
                             td=userIterated.email
                             td
                                 if(userIterated.role.toLowerCase() === 'user')
-                                    #{userIterated.role}
+                                    | #{userIterated.role}
                                 else
                                     select.change-user-role(value=userIterated.role, id=userIterated._id)
                                         -
