@@ -48,8 +48,6 @@ exports.savvyList = (req, res) => {
         .where('imported').equals(true)
         .where('published').equals(true)
         .exec((err, products) => {
-            console.log(query);
-            console.log(products);
             if (err) return res.send(err);
             // this will log all of the users with each of their posts
             Category.find({})
