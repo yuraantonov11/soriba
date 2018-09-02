@@ -14,13 +14,15 @@
                             a.nav-link(href='/') Publishing
                         li.nav-item(class=(title === 'My Products') ? 'active' : undefined)
                             a.nav-link(href='/my-products-page') My Products
-                        li.nav-item(class=(title === 'Add Product') ? 'active' : undefined)
-                            a.nav-link(href='/products/add') Add Product
                     if user.role === 'admin'
                         li.nav-item(class=(title === 'All Products') ? 'active' : undefined)
                             a.nav-link(href='/products-page') All Products
                         li.nav-item(class=(title === 'Categories') ? 'active' : undefined)
                             a.nav-link(href='/categories-page') Categories
+                    if (user.role === 'admin') || (user.role === 'researcher')
+                        li.nav-item(class=(title === 'Add Product') ? 'active' : undefined)
+                            a.nav-link(href='/products/add') Add Product
+                    if user.role === 'admin'
                         li.nav-item(class=(title === 'Users') ? 'active' : undefined)
                             a.nav-link(href='/users-page') Users
                         li.nav-item(class=(title === 'Create user') ? 'active' : undefined)
