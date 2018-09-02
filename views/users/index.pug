@@ -23,12 +23,14 @@ block content
                                 else
                                     img(src=userIterated.gravatar(60))
                             td=userIterated.email
-                            td=userIterated.role
-                            //td
-                            //    select.change-user-role(value=userIterated.role, id=userIterated._id)
-                            //        -
-                            //            var roles = ['User', 'Admin', 'Researcher']
-                            //        each role in roles
-                            //            option(selected=role.toLowerCase() === userIterated.role)=role
+                            td
+                                if(userIterated.role.toLowerCase() === 'user')
+                                    #{userIterated.role}
+                                else
+                                    select.change-user-role(value=userIterated.role, id=userIterated._id)
+                                        -
+                                            var roles = ['User', 'Admin', 'Researcher']
+                                        each role in roles
+                                            option(selected=role.toLowerCase() === userIterated.role)=role
                             td
                                 a(href='/users/'+userIterated._id+ '/products') Products Page
