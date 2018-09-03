@@ -53,9 +53,10 @@
             a.link(href='https://pinterest.com/pin/create/button/?url='+product.link+'&media=&description='+product.title, target='_blank')
                 img(src='/img/pinterest.png', height='30px', max-width='100%')
         - var isSaved = false;
-            each savedProduct in user.savedProducts
-                if (JSON.stringify(savedProduct) == JSON.stringify(product._id))
-                    - isSaved = true;
+            if(user)
+                each savedProduct in user.savedProducts
+                    if (JSON.stringify(savedProduct) == JSON.stringify(product._id))
+                        - isSaved = true;
             a(href='/save-product/' + product._id)
                 if (isSaved)
                     span.savvy-btn.far.fa-gem.text-info(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to remove from saved list')
