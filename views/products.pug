@@ -16,13 +16,13 @@ block content
                 .row
                     each product, index in products
                         if  product.published
-                            .col-md-4
+                            .col-md-4.mb-3
                                 include products/product
             #unpublished.tab-pane.fade(role='tabpanel', aria-labelledby='profile-tab')
                 .row
                     each product, index in products
                         unless  product.published
-                            .col-md-4
+                            .col-md-4.mb-3
                                 include products/product
     else
         if (savvyList)
@@ -31,5 +31,5 @@ block content
                 |   :
         .row
             each product, index in products
-                .col-md-4
+                .col-md-4.mb-3
                     include products/product

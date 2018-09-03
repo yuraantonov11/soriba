@@ -1,59 +1,63 @@
-div.link.cartWrap
-    .card.mb-3(data-id=product._id)
-        if(product.rating === 5)
-            img.bestProduct(src='/img/best_choice-new.png', height='40px', width='150px')
-        img.preview-image(src=product.image, max-width='100%')
-        if(controls)
-            .btn-group.product-actions
-                button.btn.btn-warning.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
-                    | Action
-                .dropdown-menu
-                    unless(publish && product.published)
-                        a.dropdown-item(href='/products/' + product._id) Edit
-                    if (importBtn)
-                        a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Import
-                    if(publish)
-                        .publishable-btn
-                            if product.published
-                                a.dropdown-item(href='/products/'+product._id+'/unpublish', role='button') Unpublish
-                            else
-                                a.dropdown-item(href='/products/'+product._id+'/publish', role='button') Publish
-                                a.dropdown-item(onclick='exportProduct('+ JSON.stringify(product._id)+')') Delete
-                    else
-                        if user && user.role === 'admin'
-                            a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
-        p.name.text-white.p-1= product.name
-        .card-body
-            p.title= product.title
-            ul.features
-                each item in product.features
-                    li.feature= item
-            span.price= '$' +product.price
-            span.rating
-                - var n = 0;
-                    while n++ < 5
-                        if product.rating < n
-                            span.fa.fa-star
+//div.link.cartWrap.col-sm-4.py-2
+.card.h-100.cartWrap(data-id=product._id)
+    if(product.rating === 5)
+        img.bestProduct(src='/img/best_choice-new.png', height='40px', width='150px')
+    img.preview-image(src=product.image, max-width='100%')
+    if(controls)
+        .btn-group.product-actions
+            button.btn.btn-warning.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+                | Action
+            .dropdown-menu
+                unless(publish && product.published)
+                    a.dropdown-item(href='/products/' + product._id) Edit
+                if (importBtn)
+                    a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Import
+                if(publish)
+                    .publishable-btn
+                        if product.published
+                            a.dropdown-item(href='/products/'+product._id+'/unpublish', role='button') Unpublish
                         else
-                            span.fa.fa-star.checked
-            a.link(href=product.link)
-                img.checkOut(width='100px', height='20px', src="/img/checkout.png")
-        .card-footer.bg-transparent.d-flex.justify-content-between.align-items-center
-            .social
-                a.link(href='https://www.facebook.com/sharer/sharer.php?u='+product.link, target='_blank')
-                    img(src='/img/facebook.png', height='30px', max-width='100%')
-                a.link(href='https://instagram.com/', target='_blank')
-                    img(src='/img/instagram.png', height='30px', max-width='100%')
-                a.link(href='https://twitter.com/home?status='+product.link, target='_blank')
-                    img(src='/img/twitter.png', height='30px', max-width='100%')
-                a.link(href='https://pinterest.com/pin/create/button/?url='+product.link+'&media=&description='+product.title, target='_blank')
-                    img(src='/img/pinterest.png', height='30px', max-width='100%')
-            - var isSaved = false;
-                each savedProduct in user.savedProducts
-                    if (JSON.stringify(savedProduct) == JSON.stringify(product._id))
-                        - isSaved = true;
-                a(href='/save-product/' + product._id)
-                    if (isSaved)
-                        span.savvy-btn.far.fa-gem.text-info(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to remove from saved list')
+                            a.dropdown-item(href='/products/'+product._id+'/publish', role='button') Publish
+                            a.dropdown-item(onclick='exportProduct('+ JSON.stringify(product._id)+')') Delete
+                else
+                    if user && user.role === 'admin'
+                        a.dropdown-item(onclick='deleteProduct('+ JSON.stringify(product._id)+')') Delete
+    p.name.text-white.p-1= product.name
+    .card-body
+        p.title.font-weight-bold.text-dark.text-center= '"' + product.title + '"'
+        ul.features
+            each item in product.features
+                li.feature= item
+        //span.price= '$' +product.price
+        br
+        span Editor's Rating:
+        br
+        span.rating
+            - var n = 0;
+                while n++ < 5
+                    if product.rating < n
+                        span.fa.fa-star
                     else
-                        span.savvy-btn.far.fa-gem.text-secondary(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to save product')
+                        span.fa.fa-star.checked
+        a.btn.btn-warning.float-right.text-uppercase.btn-see-price(href=product.link) See price here
+        //a.link(href=product.link)
+        //    img.checkOut(width='100px', height='20px', src="/img/checkout.png")
+    .card-footer.bg-transparent.d-flex.justify-content-between.align-items-center
+        .social
+            a.link(href='https://www.facebook.com/sharer/sharer.php?u='+product.link, target='_blank')
+                img(src='/img/facebook.png', height='30px', max-width='100%')
+            //a.link(href='https://instagram.com/', target='_blank')
+            //    img(src='/img/instagram.png', height='30px', max-width='100%')
+            a.link(href='https://twitter.com/home?status='+product.link, target='_blank')
+                img(src='/img/twitter.png', height='30px', max-width='100%')
+            a.link(href='https://pinterest.com/pin/create/button/?url='+product.link+'&media=&description='+product.title, target='_blank')
+                img(src='/img/pinterest.png', height='30px', max-width='100%')
+        - var isSaved = false;
+            each savedProduct in user.savedProducts
+                if (JSON.stringify(savedProduct) == JSON.stringify(product._id))
+                    - isSaved = true;
+            a(href='/save-product/' + product._id)
+                if (isSaved)
+                    span.savvy-btn.far.fa-gem.text-info(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to remove from saved list')
+                else
+                    span.savvy-btn.far.fa-gem.text-secondary(height='20px', max-width='100%', data-toggle='tooltip', title='Click here to save product')
