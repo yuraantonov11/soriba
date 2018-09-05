@@ -13,22 +13,25 @@ html
         link(type="text/css", rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css")
         link(type="text/css", rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css")
     body
-        if (main)
-            include partials/main-header
-        else
-            include partials/header
+        .main.pb-5
+            if (main)
+                include partials/main-header
+            else
+                include partials/header
 
-        .container
-            include partials/flash
-            block content
+            .container
+                include partials/flash
+                block content
 
-        include partials/footer
+            include partials/footer
 
 script(src='https://code.jquery.com/jquery-3.3.1.min.js', crossorigin='anonymous', integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=')
 script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js', integrity='sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49', crossorigin='anonymous')
 script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js', integrity='sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy', crossorigin='anonymous')
 script(type="text/javascript", src="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.js")
 
+script(src='https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.3.1/smooth-scrollbar.js')
+script(src='https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.3.1/plugins/overscroll.js')
 script(src='/js/main.js')
 
 // Google Analytics: change UA-XXXXX-X to be your site's ID

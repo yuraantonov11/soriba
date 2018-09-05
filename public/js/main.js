@@ -27,6 +27,21 @@ function formatDate(date) {
 
 $(document)
     .ready(() => {
+        const { Scrollbar } = window;
+
+        const scrollElements = $('.features-wrap');
+        scrollElements.each(function () {
+            Scrollbar.init($(this).get(0), {});
+        });
+
+        Scrollbar.use(window.OverscrollPlugin);
+
+        Scrollbar.init($('body').get(0), {
+            plugins: {
+                overscroll: {effect: 'bounce'},
+            },
+        });
+
         $('[data-toggle="tooltip"]').tooltip();
         const requestUrl = window.location.origin;
         // categories

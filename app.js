@@ -14,6 +14,9 @@ const MongoStore = require('connect-mongo')(session);
 const flash = require('express-flash');
 const path = require('path');
 const mongoose = require('mongoose');
+
+// mongoose.set('useFindAndModify', false);
+
 const passport = require('passport');
 const expressValidator = require('express-validator');
 const sass = require('node-sass-middleware');
