@@ -186,9 +186,22 @@ textarea {
     .btn-see-price{
       font-size: .7rem;
     }
-    .features{
-      height: 100px;
+    .features-wrap{
+      .scrollbar-track-y{
+        opacity: 0;
+        display: block !important;
+        .scrollbar-thumb-y{
+          height: 40px;
+        }
+      }
+      .features{
+        height: 100px;
+      }
     }
+  }
+  &:hover .card-body .scrollbar-track-y{
+    opacity: 1;
+    display: block !important;
   }
   &.mb-3{
     margin-bottom: 3rem !important;

@@ -385,7 +385,7 @@ exports.add = (req, res) => {
         }
         // saved!
         req.flash('success', { msg: 'Products has been added.' });
-        return res.redirect('/products-page/');
+        return res.redirect('products/add/');
     });
     // res.render('products/product', {
     //   title: 'Add new Product'

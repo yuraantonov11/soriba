@@ -31,7 +31,7 @@ $(document)
 
         const scrollElements = $('.features-wrap');
         scrollElements.each(function () {
-            Scrollbar.init($(this).get(0), {});
+            Scrollbar.init($(this).get(0), { alwaysShowTracks: false });
         });
 
         Scrollbar.use(window.OverscrollPlugin);

@@ -58,7 +58,7 @@ function permit(...allowed) {
         }
     };
 }
-router.get('/', permit('admin'), homeController.publishingPage);
+router.get('/', permit('admin', 'researcher'), homeController.publishingPage);
 router.get('/login', userController.getLogin);
 router.post('/login', userController.postLogin);
 router.get('/logout', userController.logout);
