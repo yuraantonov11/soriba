@@ -395,6 +395,13 @@ body.main{
     top: -50px;
     left: 0;
   }
+  .navbar-user{
+    right: 0;
+    top: -30px;
+    .nav-link{
+      padding: 5px;
+    }
+  }
 }
 
 @media (max-width: 991px) {
