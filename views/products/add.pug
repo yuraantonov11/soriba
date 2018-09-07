@@ -24,7 +24,7 @@ block content
                         .form-group.row
                             label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right Product feature: #{n++}
                             .col-sm-9.col-md-9
-                                input.form-control(type='text', name='features', required)
+                                input.form-control(type='text', name='features', required=!{f==1})
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-sm-9.col-md-7

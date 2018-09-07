@@ -408,7 +408,15 @@ exports.postForgot = (req, res, next) => {
         return res.redirect('/forgot');
     }
 
-    const createRandomToken = crypto.randomBytes(16, buf => buf.toString('hex'));
+    const createRandomToken = new Promise((resolve, reject) => {
+        crypto.randomBytes(16, (err, buf) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(buf.toString('hex'));
+            }
+        });
+    });
 
     const setRandomToken = token =>
         User

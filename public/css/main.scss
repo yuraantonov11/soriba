@@ -388,6 +388,14 @@ input:checked + .slider:before {
     }
   }
 }
+body.main{
+  margin-top: 50px;
+  .navbar-brand{
+    position: absolute;
+    top: -50px;
+    left: 0;
+  }
+}
 
 @media (max-width: 991px) {
   .listWrap{
