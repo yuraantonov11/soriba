@@ -26,6 +26,7 @@
     .card-body.pt-0
         p.title.font-weight-bold.text-dark.text-center.m-1= '"' + product.title + '"'
         .features-wrap.p-1
+            h1=product.features
             ul.features.mb-1
                 each item in product.features
                     li.feature= item

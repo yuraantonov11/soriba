@@ -371,7 +371,7 @@ exports.add = (req, res) => {
         name: body.name,
         title: body.title,
         choice: (body.choice === 'on'),
-        features: body.features,
+        features: body.features.filter(item => item),
         price: body.price,
         rating: body.rating,
         link: body.link,

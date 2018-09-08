@@ -24,11 +24,11 @@ block content
                         .form-group.row
                             label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right Product feature: #{n++}
                             .col-sm-9.col-md-9
-                                input.form-control(type='text', name='features', required=!{f==1})
+                                input.form-control(type='text', name='features', required=n==2, data-n=n)
                 .form-group.row
                     label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='price') Product price
                     .col-sm-9.col-md-7
-                        input.form-control(type='number', min=0 name='price', id='price', required)
+                        input.form-control(type='number', min=0.01, step=0.01, name='price', id='price', required)
                 label.col-sm-3.col-md-3.col-form-label.font-weight-bold.text-right(for='rating') Rating
                 select(name='rating' id='rating')
                     option 0
