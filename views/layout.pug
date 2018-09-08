@@ -16,10 +16,18 @@ html
         .main.pb-5
             if (main)
                 include partials/main-header
+                .container.d-flex.justify-content-end
+                    .topnav
+                        .search-container
+                            form(action=url)
+                                input(type='hidden', name='category', value=categoryQuery)
+                                input.pl-3.search-input.text-muted(type='text', placeholder='Search a savvy one...', name='search')
+                                button.btn.btn-warning.search-btn(type='submit')
+                                    i.fa.fa-search.mr-0.text-white
             else
                 include partials/header
 
-            .container
+            .container.pb-5
                 include partials/flash
                 block content
 

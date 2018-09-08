@@ -5,13 +5,19 @@ const Category = require('../models/Category');
  * Home page.
  */
 exports.index = (req, res) => {
-    const categoryQuery = req.query.category;
-    const query = {};
+    const { query } = req;
+    const categoryQuery = query.category;
+    const searchQuery = query.search;
+    const qry = {};
+
+    if (searchQuery) {
+        qry.$text = { $search: searchQuery };
+    }
     if (categoryQuery) {
-        query.categories = categoryQuery;
+        qry.categories = categoryQuery;
     }
     Product
-        .find(query)
+        .find(qry)
         .where('imported').equals(true)
         .where('published').equals(true)
         .exec((err, products) => {
@@ -26,7 +32,8 @@ exports.index = (req, res) => {
                         products,
                         categories,
                         main: true,
-                        categoryQuery
+                        categoryQuery,
+                        url: req.url
                     });
                 });
         });
