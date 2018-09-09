@@ -387,14 +387,16 @@ input:checked + .slider:before {
         }
       }
       .nav-link{
-        font-size: 10px;
+        font-size: .9rem;
         color: #bdb647;
+        text-transform: capitalize;
         img {
-          width: 20px;
-          min-height: 20px;
           margin: 5px auto;
           display: block;
         }
+      }
+      .user-nav{
+        text-transform: lowercase;
       }
     }
   }
@@ -414,6 +416,9 @@ body.main{
     top: -30px;
     .nav-link{
       padding: 5px;
+      >span{
+        text-transform: lowercase;
+      }
     }
   }
 }
