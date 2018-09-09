@@ -7,7 +7,7 @@
             span.sr-only Toggle navigation
             span.navbar-toggler-icon
         .collapse.navbar-collapse.position-relative
-            ul.nav.navbar-nav
+            ul.nav.navbar-nav.align-items-baseline
                 each category in categories
                     li.nav-item(class=(categoryQuery == category._id) ? 'active' : undefined)
                         a.nav-link(href='/?category='+category._id)
