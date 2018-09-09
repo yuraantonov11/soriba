@@ -1,12 +1,9 @@
-const { promisify } = require('util');
 const crypto = require('crypto');
-const nodemailer = require('nodemailer');
+const sgMail = require('@sendgrid/mail');
 const passport = require('passport');
 const User = require('../models/User');
 const Product = require('../models/Product');
 const Category = require('../models/Category');
-
-const randomBytesAsync = promisify(crypto.randomBytes);
 
 /**
  * GET /login
@@ -140,6 +137,15 @@ exports.postSignup = (req, res, next) => {
                 if (err) {
                     return next(err);
                 }
+                sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+                sgMail.setSubstitutionWrappers('{{', '}}'); // Configure the substitution tag wrappers globally
+                const msg = {
+                    to: user.email,
+                    from: 'info@sansavvy.com',
+                    subject: 'You are registered on Sansavvy.com',
+                    templateId: process.env.SENDGRID_TEMPLATE_REGISTER,
+                };
+                sgMail.send(msg);
                 res.redirect('/');
             });
         });
@@ -351,20 +357,18 @@ exports.postReset = (req, res, next) => {
         if (!user) {
             return;
         }
-        const transporter = nodemailer.createTransport({
-            service: 'SendGrid',
-            auth: {
-                user: process.env.SENDGRID_USER,
-                pass: process.env.SENDGRID_PASSWORD
-            }
-        });
-        const mailOptions = {
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        sgMail.setSubstitutionWrappers('{{', '}}'); // Configure the substitution tag wrappers globally
+        const msg = {
             to: user.email,
-            from: 'hackathon@starter.com',
-            subject: 'Your Hackathon Starter password has been changed',
-            text: `Hello,\n\nThis is a confirmation that the password for your account ${user.email} has just been changed.\n`
+            from: 'info@sansavvy.com',
+            subject: 'Your Sansavvy password has been changed',
+            templateId: process.env.SENDGRID_TEMPLATE_CHANGE,
+            dynamicTemplateData: {
+                userEmail: user.email,
+            },
         };
-        return transporter.sendMail(mailOptions)
+        return sgMail.send(msg)
             .then(() => {
                 req.flash('success', { msg: 'Success! Your password has been changed.' });
             });
@@ -437,23 +441,18 @@ exports.postForgot = (req, res, next) => {
             return;
         }
         const token = user.passwordResetToken;
-        const transporter = nodemailer.createTransport({
-            service: 'SendGrid',
-            auth: {
-                user: process.env.SENDGRID_USER,
-                pass: process.env.SENDGRID_PASSWORD
-            }
-        });
-        const mailOptions = {
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+        sgMail.setSubstitutionWrappers('{{', '}}'); // Configure the substitution tag wrappers globally
+        const msg = {
             to: user.email,
-            from: 'hackathon@starter.com',
-            subject: 'Reset your password on Hackathon Starter',
-            text: `You are receiving this email because you (or someone else) have requested the reset of the password for your account.\n\n
-        Please click on the following link, or paste this into your browser to complete the process:\n\n
-        http://${req.headers.host}/reset/${token}\n\n
-        If you did not request this, please ignore this email and your password will remain unchanged.\n`
+            from: 'info@sansavvy.com',
+            subject: 'Reset your password on Sansavvy.com',
+            templateId: process.env.SENDGRID_TEMPLATE_RESET,
+            dynamicTemplateData: {
+                link: `http://${req.headers.host}/reset/${token}`,
+            },
         };
-        return transporter.sendMail(mailOptions)
+        return sgMail.send(msg)
             .then(() => {
                 req.flash('info', { msg: `An e-mail has been sent to ${user.email} with further instructions.` });
             });
