@@ -70,7 +70,7 @@ exports.unpublishProduct = (req, res) => {
             req.flash('success', { msg: 'Product has been unpublished.' });
         }
 
-        res.redirect('/#unpublished');
+        res.redirect('/');
     });
 };
 
@@ -87,7 +87,7 @@ exports.publishProduct = (req, res) => {
         } else {
             req.flash('success', { msg: 'Product has been published.' });
         }
-        res.redirect('/#published');
+        res.redirect('/');
     });
 };
 
