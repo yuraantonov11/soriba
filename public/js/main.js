@@ -42,7 +42,7 @@ $(document)
             },
         });
 
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip({container: '.main'});
         const requestUrl = window.location.origin;
         // categories
         // eslint-disable-next-line no-unused-vars

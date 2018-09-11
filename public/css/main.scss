@@ -193,7 +193,7 @@ textarea {
   }
   .card-body{
     .btn-see-price{
-      font-size: .7rem;
+      font-size: .65rem;
     }
     .features-wrap{
       .scrollbar-track-y{
@@ -421,8 +421,11 @@ body.main{
     }
   }
 }
+.tooltip.fade.bs-tooltip-top{
+  top: -50px;
+}
 
-@media (max-width: 991px) {
+  @media (max-width: 991px) {
   .listWrap{
     display: block;
   }
