@@ -1,41 +1,43 @@
-.navbar.navbar-light.fixed-top.navbar-expand-md.navbar-main
-    .container
+.navbar.navbar-light.navbar-expand-md.navbar-main
+    .logo-line
         a.navbar-brand(href='/')
             //i.fas.fa-cube
             | SANSAVVY
         button.navbar-toggler(type='button', data-toggle='collapse', data-target='.navbar-collapse')
             span.sr-only Toggle navigation
             span.navbar-toggler-icon
-        .collapse.navbar-collapse.position-relative
-            ul.nav.navbar-nav.align-items-baseline
-                each category in categories
-                    li.nav-item(class=(categoryQuery == category._id) ? 'active' : undefined)
-                        a.nav-link(href='/?category='+category._id)
-                            img(src=category.image)
-                            |#{category.name}
-            ul.nav.navbar-nav.navbar-user.ml-auto.position-absolute
-                if !user
-                    li.nav-item(class=(title === 'Login') ? 'active' : undefined)
-                        a.nav-link(href='/login') Login
-                    li.nav-item
-                        .nav-link |
-                    li.nav-item(class=(title === 'Register') ? 'active' : undefined)
-                        a.nav-link(href='/signup') Register
-                else
-                    li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
-                        a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
-                            //if user.profile.picture
-                            //    img(src=user.profile.picture)
-                            //else
-                            //    img(src=user.gravatar(60))
-                            span= user.profile.name || user.email || user.id
-                            //i.caret
-                        ul.dropdown-menu
-                            li.dropdown-item
-                                a(href='/account') My Account
-                            unless (savvyList)
+    .line
+        .container
+            .collapse.navbar-collapse.position-relative
+                ul.nav.navbar-nav.align-items-baseline
+                    each category in categories
+                        li.nav-item(class=(categoryQuery == category._id) ? 'active' : undefined)
+                            a.nav-link(href='/?category='+category._id)
+                                img(src=category.image)
+                                |#{category.name}
+                ul.nav.navbar-nav.navbar-user.ml-auto.position-absolute
+                    if !user
+                        li.nav-item(class=(title === 'Login') ? 'active' : undefined)
+                            a.nav-link(href='/login') Login
+                        li.nav-item
+                            .nav-link |
+                        li.nav-item(class=(title === 'Register') ? 'active' : undefined)
+                            a.nav-link(href='/signup') Register
+                    else
+                        li.dropdown(class=(title === 'Account Management') ? 'active' : undefined).nav-item
+                            a.dropdown-toggle.nav-link(href='#', data-toggle='dropdown')
+                                //if user.profile.picture
+                                //    img(src=user.profile.picture)
+                                //else
+                                //    img(src=user.gravatar(60))
+                                span= user.profile.name || user.email || user.id
+                                //i.caret
+                            ul.dropdown-menu
                                 li.dropdown-item
-                                    a(href='/savvy-list') Savvy List
-                            li.divider.dropdown-item
-                            li.dropdown-item
-                                a(href='/logout') Logout
+                                    a(href='/account') My Account
+                                unless (savvyList)
+                                    li.dropdown-item
+                                        a(href='/savvy-list') Savvy List
+                                li.divider.dropdown-item
+                                li.dropdown-item
+                                    a(href='/logout') Logout
