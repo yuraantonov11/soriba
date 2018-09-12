@@ -8,11 +8,11 @@ html
         meta(name='csrf-token', content=_csrf)
 
         if (product)
-        meta(property='og:url', content='/product/' + product._id)
-        meta(property='og:type', content='article')
-        meta(property='og:title', content=product.name)
-        meta(property='og:description', content=product.title)
-        meta(property='og:image', content=product.image)
+            meta(property='og:url', content='/product/' + product._id)
+            meta(property='og:type', content='article')
+            meta(property='og:title', content=product.name)
+            meta(property='og:description', content=product.title)
+            meta(property='og:image', content=product.image)
 
         title #{title} - Sansavvy
         link(rel='shortcut icon', href='/favicon.png')
