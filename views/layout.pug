@@ -6,7 +6,15 @@ html
         meta(name='viewport', content='width=device-width, initial-scale=1.0')
         meta(name='theme-color' content='#4DA5F4')
         meta(name='csrf-token', content=_csrf)
-        title #{title} - Web site
+
+        if (product)
+        meta(property='og:url', content='/product/' + product._id)
+        meta(property='og:type', content='article')
+        meta(property='og:title', content=product.name)
+        meta(property='og:description', content=product.title)
+        meta(property='og:image', content=product.image)
+
+        title #{title} - Sansavvy
         link(rel='shortcut icon', href='/favicon.png')
         link(rel='stylesheet', href='/css/main.css')
         link(rel='stylesheet', href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css")

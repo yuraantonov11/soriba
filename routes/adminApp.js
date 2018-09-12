@@ -98,6 +98,7 @@ router.post('/products/:productId/export', productsController.exportProduct);
 router.post('/product-edit/:productId', upload.single('product-image'), productsController.editProduct);
 router.get('/products', productsController.getAll);
 router.post('/products', upload.single('product-image'), productsController.add);
+router.get('/save-product/:productId', productsController.toggleSaved);
 
 
 /**

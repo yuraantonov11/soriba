@@ -140,6 +140,8 @@ router.get('/reset/:token', userController.getReset);
 router.post('/reset/:token', userController.postReset);
 router.get('/signup', userController.getSignup);
 router.post('/signup', userController.postSignup);
+
+router.get('/products/:productId', productController.product);
 router.get('/save-product/:productId', productController.toggleSaved);
 
 router.get('/account', passportConfig.isAuthenticated, userController.getAccountMain);

@@ -232,10 +232,23 @@ exports.getAll = (req, res) => {
  * Product page.
  */
 exports.product = (req, res) => {
-    res.render('products/product', {
-        title: 'Product',
-        // products: products[0]
-    });
+    const { productId } = req.params;
+    Product
+        .findById(productId)
+        .populate('categories', '_id')
+        .exec((err, product) => {
+            if (err) return res.send(err);
+            // this will log all of the users with each of their posts
+            // product.categories.map(c => c._id);
+            Category.find({})
+                .exec((err, c) => {
+                    if (err) console.log(err);
+                    res.render('products/product-page', {
+                        title: 'Product',
+                        product
+                    });
+                });
+        });
 };
 /**
  * POST /
