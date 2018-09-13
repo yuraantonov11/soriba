@@ -53,7 +53,7 @@
             //    img(src='/img/instagram.png', height='30px', max-width='100%')
             a.link(href='https://twitter.com/home?status='+product.link, target='_blank')
                 img(src='/img/twitter.png', height='30px', max-width='100%')
-            a.link(href='https://pinterest.com/pin/create/button/?url=http://sansavvy.com/'+product.link+'&media=http://sansavvy.com/'+product.image+'&description='+product.title, target='_blank')
+            a.link(href='https://pinterest.com/pin/create/button/?url='+product.link+'&media=http://sansavvy.com/'+product.image+'&description='+product.title, target='_blank')
                 img(src='/img/pinterest.png', height='30px', max-width='100%')
         - var isSaved = false;
             if(user)
