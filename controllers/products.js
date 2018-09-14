@@ -241,11 +241,13 @@ exports.product = (req, res) => {
             // this will log all of the users with each of their posts
             // product.categories.map(c => c._id);
             Category.find({})
-                .exec((err, c) => {
+                .exec((err, categories) => {
                     if (err) console.log(err);
                     res.render('products/product-page', {
                         title: 'Product',
-                        product
+                        main: true,
+                        product,
+                        categories
                     });
                 });
         });
