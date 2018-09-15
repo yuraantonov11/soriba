@@ -155,6 +155,7 @@ router.get('/account/unlink/:provider', passportConfig.isAuthenticated, userCont
 
 // app.use(subdomain('adminportal', adminRouter));
 app.use(vhost(process.env.DOMAIN, router));
+app.use(vhost(`www.${process.env.DOMAIN}`, router));
 app.use(vhost(`${process.env.SUBDOMAIN}.${process.env.DOMAIN}`, adminRouter));
 
 
