@@ -259,7 +259,7 @@ input[name='category']{
 .link{
   color: gray;
 }
-.cartWrap .card.mb-3 > img:not(.bestProduct){
+.cartWrap.card > img:not(.bestProduct){
   height: 200px;
   width: 100%;
 }
