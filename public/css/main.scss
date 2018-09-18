@@ -46,10 +46,11 @@ body {
 
 footer {
   position: absolute;
-  bottom: 50px;
+  bottom: 0;
   width: 100%;
-  height: 45px;
   line-height: 45px;
+  background-color: $bg-color-dark;
+  color: $mockup-yellow-text;
 
   p, ul {
     margin-bottom: 0;
@@ -387,12 +388,12 @@ input:checked + .slider:before {
         text-transform: capitalize;
         &.active {
           .nav-link {
-            color: #dc29ff;
+            color: $mockup-pink-text;
           }
         }
         .nav-link {
           font-size: .9rem;
-          color: #bdb647;
+          color: $mockup-yellow-text;
           text-transform: capitalize;
           img {
             margin: 5px auto;
@@ -403,14 +404,19 @@ input:checked + .slider:before {
           text-transform: lowercase;
         }
       }
+      &.login-controls{
+        .nav-link{
+          color: darken($mockup-yellow-text, 8%);
+        }
+      }
     }
   }
 }
 body.main{
   //margin-top: 50px;
-  >.scrollbar-track{
-    top: -50px;
-  }
+  //>.scrollbar-track{
+  //  top: -50px;
+  //}
   .navbar-brand{
     //position: absolute;
     //top: -50px;

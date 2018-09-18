@@ -15,7 +15,7 @@
                             a.nav-link(href='/?category='+category._id)
                                 img(src='/'+category.image)
                                 |#{category.name}
-                ul.nav.navbar-nav.navbar-user.ml-auto.position-absolute
+                ul.nav.navbar-nav.navbar-user.ml-auto.position-absolute.login-controls
                     if !user
                         li.nav-item(class=(title === 'Login') ? 'active' : undefined)
                             a.nav-link(href='/login') Login

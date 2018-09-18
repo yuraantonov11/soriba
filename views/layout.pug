@@ -29,7 +29,7 @@ html
         link(type="text/css", rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid.min.css")
         link(type="text/css", rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/jsgrid/1.5.3/jsgrid-theme.min.css")
     body(class=main ? 'main' : 'admin')
-        .main.pb-5
+        .main
             if (main)
                 include partials/main-header
                 .container.d-flex.justify-content-end.mt-4
@@ -59,7 +59,7 @@ script(src='https://cdnjs.cloudflare.com/ajax/libs/smooth-scrollbar/8.3.1/plugin
 script(src='/js/main.js')
 
 // Google Analytics: change UA-XXXXX-X to be your site's ID
-script.
+//script.
     (function (i, s, o, g, r, a, m) {
         i['GoogleAnalyticsObject'] = r;
         i[r] = i[r] || function () {
